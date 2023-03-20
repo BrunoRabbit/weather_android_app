@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 library prisma.client; // ignore_for_file: no_leading_underscores_for_library_prefixes
 
 import 'package:json_annotation/json_annotation.dart';
