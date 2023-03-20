@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:weather_android_app/components/gradient_scaffold.dart';
+import 'package:weather_android_app/modules/register/register_view.dart';
 import 'package:weather_android_app/modules/splash/entity/page_item.dart';
-import 'package:weather_android_app/modules/splash/view/widgets/login_button.dart';
+import 'package:weather_android_app/modules/splash/view/widgets/auth_button.dart';
 import 'package:weather_android_app/modules/splash/view/widgets/skip_button.dart';
+import 'package:weather_android_app/routes/app_routes.dart';
 import 'package:weather_android_app/utility/app_utility.dart';
 import 'package:weather_android_app/utility/text_utility.dart';
 
@@ -148,7 +150,27 @@ class _SplashViewState extends State<SplashView> {
                       height: size.height / 16,
                     ),
                     currentIndex == 2
-                        ? LoginButton(size: size)
+                        ? Row(
+                            children: [
+                              Expanded(
+                                child: AuthButton(
+                                  title: "Registrar",
+                                  onPress: () {
+                                    Navigator.of(context).push(
+                                      AppRouter.createRoute(
+                                        const RegisterView(),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                              Expanded(
+                                child: AuthButton(
+                                  onPress: () {},
+                                ),
+                              ),
+                            ],
+                          )
                         : SkipButton(
                             size: size,
                             pageController: pageController,
