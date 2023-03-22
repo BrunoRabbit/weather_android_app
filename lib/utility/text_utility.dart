@@ -56,4 +56,10 @@ class TextUtility {
     fontWeight: FontWeight.bold,
     color: Colors.grey,
   );
+
+  static TextStyle error1 = _base.copyWith(
+    fontSize: 12,
+    fontWeight: FontWeight.bold,
+    color: const Color(0xffe03c4c),
+  );
 }

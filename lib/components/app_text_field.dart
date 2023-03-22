@@ -5,11 +5,13 @@ import 'package:weather_android_app/utility/text_utility.dart';
 class AppTextField extends StatelessWidget {
   final String? Function(String?)? validator;
   final String labelText;
+  final TextEditingController controller;
 
   const AppTextField({
     Key? key,
     this.validator,
     required this.labelText,
+    required this.controller,
   }) : super(key: key);
 
   final Color colorTxt = Colors.white;
@@ -28,21 +30,26 @@ class AppTextField extends StatelessWidget {
           const SizedBox(
             height: 6,
           ),
-          Container(
-            decoration: BoxDecoration(
-              color: AppUtility.formBackground,
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            child: TextFormField(
-              validator: validator,
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.symmetric(horizontal: 10),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                hintText: 'Digite aqui...',
-                hintStyle: TextUtility.body2.copyWith(
-                  color: colorTxt.withOpacity(.4),
-                ),
-                border: InputBorder.none,
+          TextFormField(
+            validator: validator,
+            controller: controller,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: AppUtility.formBackground,
+              contentPadding: const EdgeInsets.symmetric(horizontal: 10),
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+              hintText: 'Digite aqui...',
+              hintStyle: TextUtility.body2.copyWith(
+                color: colorTxt.withOpacity(.4),
+              ),
+              errorStyle: TextUtility.error1,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                borderSide: BorderSide.none,
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                borderSide: BorderSide.none,
               ),
             ),
           ),
