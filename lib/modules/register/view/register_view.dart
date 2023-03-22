@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_android_app/components/app_text_field.dart';
+import 'package:weather_android_app/modules/register/view/widgets/form_component.dart';
 import 'package:weather_android_app/utility/app_utility.dart';
 import 'package:weather_android_app/utility/text_utility.dart';
 
@@ -11,13 +11,22 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
-  late GlobalKey _formKey;
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  late TextEditingController _emailController;
+  late TextEditingController _passwordController;
+  late TextEditingController _confirmPasswordController;
+  late TextEditingController _nameController;
+
   late Size _size;
 
   @override
   void initState() {
     super.initState();
-    _formKey = GlobalKey<FormState>();
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
+    _confirmPasswordController = TextEditingController();
+    _nameController = TextEditingController();
   }
 
   @override
@@ -27,10 +36,34 @@ class _RegisterViewState extends State<RegisterView> {
   }
 
   @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    _nameController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            // ? unfocus keyboard after 200 milli to avoid overflow
+            if (FocusManager.instance.primaryFocus!.hasFocus) {
+              FocusManager.instance.primaryFocus?.unfocus();
+
+              Future.delayed(const Duration(milliseconds: 200), () {
+                Navigator.of(context).pop();
+              });
+            } else {
+              Navigator.of(context).pop();
+            }
+          },
+        ),
         title: Text(
           "Voltar",
           style: TextUtility.subtitle1.copyWith(color: Colors.white),
@@ -66,100 +99,19 @@ class _RegisterViewState extends State<RegisterView> {
             ),
           ),
 
-          // ? TextFormField
-          Expanded(
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  CustomPaint(
-                    size: Size(double.infinity, _size.height / 9.96),
-                    painter: AuthPainter(),
-                  ),
-                  Expanded(
-                    child: Container(
-                      color: AppUtility.primaryBackground,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            AppTextField(
-                              labelText: "Email",
-                              validator: (text) {},
-                            ),
-                            AppTextField(
-                              labelText: "Senha",
-                              validator: (text) {},
-                            ),
-                            AppTextField(
-                              labelText: "Confirme sua senha",
-                              validator: (text) {},
-                            ),
-                            AppTextField(
-                              labelText: "Digite seu nome",
-                              validator: (text) {},
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            InkWell(
-                              borderRadius: BorderRadius.circular(12.0),
-                              splashColor: AppUtility.secondaryColor,
-                              onTap: () {
-                                // setState(() {
-                                //   widget.pageController.animateToPage(
-                                //     2,
-                                //     duration: const Duration(milliseconds: 1000),
-                                //     curve: Curves.fastOutSlowIn,
-                                //   );
-                                // });
-                              },
-                              child: Container(
-                                width: _size.width / 2.5,
-                                height: _size.height / 18,
-                                decoration: const ShapeDecoration(
-                                  color: AppUtility.secondaryBackground,
-                                  shape: StadiumBorder(),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "Registrar",
-                                    style: TextUtility.body1.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          // ? Form
+          FormComponent(
+            formKey: _formKey,
+            size: _size,
+            emailController: _emailController,
+            passwordController: _passwordController,
+            confirmPasswordController: _confirmPasswordController,
+            nameController: _nameController,
           ),
         ],
       ),
     );
   }
-}
-
-class AuthPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()..color = AppUtility.primaryBackground;
-
-    Path path = Path();
-
-    path.moveTo(0, size.height);
-
-    path.quadraticBezierTo(
-        size.width / 2, -size.height / 1.1, size.width, size.height);
-
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
 
 class AppBarPainter extends CustomPainter {
