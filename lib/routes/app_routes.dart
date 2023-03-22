@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:weather_android_app/modules/home/view/home_view.dart';
-import 'package:weather_android_app/modules/register/register_view.dart';
+import 'package:weather_android_app/modules/register/view/register_view.dart';
 import 'package:weather_android_app/modules/splash/view/splash_view.dart';
 
 class AppRoutes {

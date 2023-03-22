@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:weather_android_app/components/gradient_scaffold.dart';
-import 'package:weather_android_app/modules/register/register_view.dart';
+import 'package:weather_android_app/modules/register/view/register_view.dart';
 import 'package:weather_android_app/modules/splash/entity/page_item.dart';
 import 'package:weather_android_app/modules/splash/view/widgets/auth_button.dart';
 import 'package:weather_android_app/modules/splash/view/widgets/skip_button.dart';
