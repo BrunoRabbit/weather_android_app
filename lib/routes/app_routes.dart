@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 import 'package:weather_android_app/modules/home/view/home_view.dart';
@@ -18,7 +17,7 @@ class AppRouter {
         return createRoute(const SplashView());
 
       case AppRoutes.home:
-        return createRoute(const MyHomePage());
+        return createRoute(const HomeView());
       
       case AppRoutes.register:
         return createRoute(const RegisterView());
