@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_android_app/modules/home/entity/user_location.dart';
 import 'package:weather_android_app/modules/home/view/widgets/today_info.dart';
 import 'dart:math' as math;
 
@@ -7,10 +8,12 @@ class WeatherMainContent extends StatelessWidget {
     super.key,
     required this.size,
     required AnimationController controller,
+    required this.userLocation,
   }) : _controller = controller;
 
   final Size size;
   final AnimationController _controller;
+  final UserLocation? userLocation;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +23,7 @@ class WeatherMainContent extends StatelessWidget {
         children: [
           // ? Wave and today info
           AnimatedWave(controller: _controller, size: size),
-          const TodayInfo(),
+          TodayInfo(userLocation),
 
           // ? Search Button
           Container(
