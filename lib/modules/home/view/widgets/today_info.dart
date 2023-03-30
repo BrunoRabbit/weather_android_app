@@ -39,7 +39,7 @@ class TodayInfo extends StatelessWidget {
               ),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 38),
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Text(
                     forecastInfo?.description ?? 'Desconhecido',
                     style: TextUtility.headline2.medium,
