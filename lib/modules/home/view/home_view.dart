@@ -71,11 +71,15 @@ class _HomeViewState extends State<HomeView>
                   const WeatherWeek(),
                 ],
               )
-            : const Center(child: CircularProgressIndicator()),
+            : const Center(
+                child: CircularProgressIndicator(),
+              ),
       ),
     );
   }
-
+  
+  // * [checkServiceLocation] and [askDeviceLocation] both is to verify if device
+  // * can use location services, and if enable, ask for user permission
   Future checkServiceLocation() async {
     Location location = Location();
 
@@ -113,6 +117,7 @@ class _HomeViewState extends State<HomeView>
     }
   }
 
+  // ! Case user deny permission, show Dialog and logOut
   Future<void> displayDialog(BuildContext context) async {
     return showDialog(
       context: context,

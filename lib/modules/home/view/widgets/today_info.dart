@@ -19,12 +19,15 @@ class TodayInfo extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            width: 100,
-            child: Text(
-              "${weatherInfo?.temp.toString() ?? '18'}°",
-              style: TextUtility.headline1.medium,
-            ),
+          Row(
+            children: [
+              const Spacer(),
+              Text(
+                "${weatherInfo?.temp.toString() ?? '18'}°",
+                style: TextUtility.title.medium,
+              ),
+              const Spacer(flex: 2),
+            ],
           ),
           const SizedBox(height: 16),
           Row(
@@ -34,9 +37,14 @@ class TodayInfo extends StatelessWidget {
                 title: '${forecastInfo?.max.toString() ?? '26'}°',
                 icon: Icons.arrow_drop_up_sharp,
               ),
-              Text(
-                'Cloudy',
-                style: TextUtility.headline1.medium,
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 38),
+                  child: Text(
+                    forecastInfo?.description ?? 'Desconhecido',
+                    style: TextUtility.headline2.medium,
+                  ),
+                ),
               ),
               CurrentTimeIndicator(
                 title: '${forecastInfo?.min.toString() ?? '15'}°',
