@@ -68,7 +68,9 @@ class _HomeViewState extends State<HomeView>
                   ),
 
                   // ? week weather info
-                  const WeatherWeek(),
+                  WeatherWeek(
+                    userLocation: presenter.userLocation,
+                  ),
                 ],
               )
             : const Center(
@@ -77,7 +79,7 @@ class _HomeViewState extends State<HomeView>
       ),
     );
   }
-  
+
   // * [checkServiceLocation] and [askDeviceLocation] both is to verify if device
   // * can use location services, and if enable, ask for user permission
   Future checkServiceLocation() async {
