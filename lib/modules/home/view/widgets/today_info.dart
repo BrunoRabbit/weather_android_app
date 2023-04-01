@@ -20,22 +20,27 @@ class TodayInfo extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          // * Centered Temp
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 "${weatherInfo?.temp.toString() ?? '18'}°",
-                style: TextUtility.headline1.medium.copyWith(fontFamily: 'Nunito-Medium'),
+                style: TextUtility.headline1.medium
+                    .copyWith(fontFamily: 'Nunito-Medium'),
               ),
             ],
           ),
           const SizedBox(height: 16),
+
+          // * Max, description and Min temp details
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CurrentTimeIndicator(
-                  title: '${forecastInfo?.max.toString() ?? '26'}°',
-                  icon: FontAwesomeIcons.caretUp),
+                title: '${forecastInfo?.max.toString() ?? '26'}°',
+                icon: FontAwesomeIcons.caretUp,
+              ),
               Expanded(
                 child: Text(
                   forecastInfo?.description ?? 'Desconhecido',
@@ -43,7 +48,6 @@ class TodayInfo extends StatelessWidget {
                     fontFamily: 'Nunito-Medium',
                   ),
                   textAlign: TextAlign.center,
-                  
                 ),
               ),
               CurrentTimeIndicator(
