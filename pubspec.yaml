@@ -25,6 +25,7 @@ dependencies:
   hive_flutter: ^1.1.0
   location: ^4.4.0
   http: ^0.13.5
+  font_awesome_flutter: ^10.4.0
   
 dev_dependencies:
   flutter_test:
@@ -40,4 +41,24 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/fonts/
     - .env
+    
+  fonts:
+    - family: Nunito-Regular
+      fonts:
+        - asset: assets/fonts/Nunito-Regular.ttf
+    - family: Nunito-Medium
+      fonts:
+        - asset: assets/fonts/Nunito-Medium.ttf
+    - family: Nunito-Bold
+      fonts:
+        - asset: assets/fonts/Nunito-Bold.ttf
+    
+    - family: Nunito-Light
+      fonts:
+        - asset: assets/fonts/Nunito-Light.ttf
+    # TODO - ADD NUNITO, UBUNTU E KARLA
+    # - family: Nunito-Regular
+      # fonts:
+        # - asset: assets/fonts/Nunito-Light.ttf
