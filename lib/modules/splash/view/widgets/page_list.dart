@@ -15,18 +15,19 @@ class PageList {
             const SizedBox(
               height: 40,
             ),
-            RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                text: "Weather App\n",
+            Padding(
+              padding: const EdgeInsets.only(bottom: 6),
+              child: Text(
+                "Weather App",
+                textAlign: TextAlign.center,
                 style: TextUtility.headline1,
-                children: [
-                  TextSpan(
-                    text: "Sua solução alternativa para ver o clima",
-                    style: TextUtility.body1.italic,
-                  ),
-                ],
               ),
+            ),
+            Text(
+              "Sua solução alternativa para ver o clima",
+              style:
+                  TextUtility.body1.italic.copyWith(fontFamily: 'Nunito-Bold'),
+              textAlign: TextAlign.center,
             ),
           ],
         ),
@@ -37,21 +38,21 @@ class PageList {
         subTitle: Column(
           children: [
             const SizedBox(
-              height: 15,
+              height: 5,
             ),
-            RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                text: "Como seu dado é utilizado?\n",
-                style: TextUtility.headline2,
-                children: [
-                  TextSpan(
-                    text:
-                        "Utilizamos seus dados apenas para armazenar seu histórico",
-                    style: TextUtility.body1.italic,
-                  ),
-                ],
+            Padding(
+              padding: const EdgeInsets.only(bottom: 6),
+              child: Text(
+                "Como seus dados são utilizados?",
+                textAlign: TextAlign.center,
+                style: TextUtility.headline3,
               ),
+            ),
+            Text(
+              "Utilizamos seus dados apenas para armazenar seu histórico",
+              style:
+                  TextUtility.body1.italic.copyWith(fontFamily: 'Nunito-Bold'),
+              textAlign: TextAlign.center,
             ),
           ],
         ),
@@ -64,19 +65,21 @@ class PageList {
             const SizedBox(
               height: 40,
             ),
-            RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                text: "Detalhes do clima\n",
+            Padding(
+              padding: const EdgeInsets.only(bottom: 6),
+              child: Text(
+                "Detalhes do clima",
+                textAlign: TextAlign.center,
                 style: TextUtility.headline1,
-                children: [
-                  TextSpan(
-                    text: "Veja dados precisos com apenas um clique",
-                    style: TextUtility.body1.italic,
-                  ),
-                ],
               ),
             ),
+            Text(
+             "Veja dados precisos com apenas um clique",
+              style:
+                  TextUtility.body1.italic.copyWith(fontFamily: 'Nunito-Bold'),
+              textAlign: TextAlign.center,
+            ),
+            
           ],
         ),
       ),
