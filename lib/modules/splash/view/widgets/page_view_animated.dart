@@ -51,7 +51,7 @@ class PageViewAnimated extends StatelessWidget {
 
                 // ? TITLE
                 Padding(
-                    padding: const EdgeInsets.only(top: 25, bottom: 15),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     child: animate(
                       index,
                       300,
