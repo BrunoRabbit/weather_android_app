@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:weather_android_app/modules/home/entity/user_location.dart';
 import 'package:weather_android_app/modules/home/view/widgets/current_time_indicator.dart';
 
@@ -20,13 +21,12 @@ class TodayInfo extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Spacer(),
               Text(
                 "${weatherInfo?.temp.toString() ?? '18'}°",
-                style: TextUtility.title.medium,
+                style: TextUtility.headline1.medium.copyWith(fontFamily: 'Nunito-Medium'),
               ),
-              const Spacer(flex: 2),
             ],
           ),
           const SizedBox(height: 16),
@@ -34,21 +34,21 @@ class TodayInfo extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               CurrentTimeIndicator(
-                title: '${forecastInfo?.max.toString() ?? '26'}°',
-                icon: Icons.arrow_drop_up_sharp,
-              ),
+                  title: '${forecastInfo?.max.toString() ?? '26'}°',
+                  icon: FontAwesomeIcons.caretUp),
               Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: Text(
-                    forecastInfo?.description ?? 'Desconhecido',
-                    style: TextUtility.headline2.medium,
+                child: Text(
+                  forecastInfo?.description ?? 'Desconhecido',
+                  style: TextUtility.headline3.medium.copyWith(
+                    fontFamily: 'Nunito-Medium',
                   ),
+                  textAlign: TextAlign.center,
+                  
                 ),
               ),
               CurrentTimeIndicator(
                 title: '${forecastInfo?.min.toString() ?? '15'}°',
-                icon: Icons.arrow_drop_down_sharp,
+                icon: FontAwesomeIcons.caretDown,
               ),
             ],
           ),

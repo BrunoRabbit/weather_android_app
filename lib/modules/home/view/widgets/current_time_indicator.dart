@@ -19,12 +19,14 @@ class CurrentTimeIndicator extends StatelessWidget {
           alignment: Alignment.center,
           child: Text(
             title,
-            style: TextUtility.headline2,
+            style: TextUtility.headline3.copyWith(
+              fontFamily: 'Nunito-Medium',
+            ),
           ),
         ),
         Icon(
           icon,
-          size: 30,
+          size: 20,
           color: Colors.white,
         )
       ],
