@@ -11,7 +11,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  flutter_localizations:
+    sdk: flutter
+    
   cupertino_icons: ^1.0.2
   flutter_svg: ^1.1.6
   animate_do: ^3.0.2
@@ -26,6 +28,7 @@ dependencies:
   location: ^4.4.0
   http: ^0.13.5
   font_awesome_flutter: ^10.4.0
+  intl: ^0.17.0
   
 dev_dependencies:
   flutter_test:
