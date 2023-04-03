@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:location/location.dart';
 import 'package:weather_android_app/modules/home/entity/user_lat_long.dart';
 import 'package:weather_android_app/modules/home/presenter/home_presenter.dart';
+import 'package:weather_android_app/modules/home/view/widgets/main_drawer.dart';
 import 'package:weather_android_app/modules/home/view/widgets/weather_main_content.dart';
 import 'package:weather_android_app/modules/home/view/widgets/weather_week.dart';
 import 'package:weather_android_app/modules/splash/view/splash_view.dart';
@@ -55,7 +56,35 @@ class _HomeViewState extends State<HomeView>
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
+        centerTitle: true,
+        title: Observer(
+          builder: (context) => presenter.userLocation != null
+              ? Text(
+                  presenter.userLocation!.results!.city!,
+                )
+              : Container(),
+        ),
+        actions: [
+         
+          Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: IconButton(
+              icon: const Icon(
+                Icons.logout_rounded,
+              ),
+              onPressed: () {
+                // TODO - LOGOUT
+                Navigator.of(context).pushReplacement(
+                  AppRouter.createRoute(
+                    const SplashView(),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
+      drawer: MainDrawer(presenter: presenter),
       body: Observer(
         builder: (_) => presenter.userLocation != null
             ? Column(
