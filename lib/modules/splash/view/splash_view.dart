@@ -41,35 +41,35 @@ class _SplashViewState extends State<SplashView> {
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(
-        gradient: const LinearGradient(
-          begin: Alignment.bottomLeft,
-          end: Alignment.topRight,
-          colors: [
-            AppUtility.primaryColor,
-            AppUtility.secondaryColor,
+      gradient: const LinearGradient(
+        begin: Alignment.bottomLeft,
+        end: Alignment.topRight,
+        colors: [
+          AppUtility.kPrimaryColor,
+          AppUtility.kSecondaryColor,
+        ],
+      ),
+      body: SizedBox(
+        width: size.width,
+        height: size.height,
+        child: Column(
+          children: [
+            // ? Page View with animation
+            PageViewAnimated(
+              pageController: pageController,
+              size: size,
+              presenter: presenter,
+            ),
+
+            // ? DOT INDICATOR
+            DotIndicator(
+              pageController: pageController,
+              size: size,
+              presenter: presenter,
+            ),
           ],
         ),
-        body: SizedBox(
-          width: size.width,
-          height: size.height,
-          child: Column(
-            children: [
-              // ? Page View with animation
-              PageViewAnimated(
-                pageController: pageController,
-                size: size,
-                presenter: presenter,
-              ),
-
-              // ? DOT INDICATOR
-              DotIndicator(
-                pageController: pageController,
-                size: size,
-                presenter: presenter,
-              ),
-            ],
-          ),
-        ));
+      ),
+    );
   }
 }
-

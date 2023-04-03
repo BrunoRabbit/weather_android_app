@@ -21,7 +21,7 @@ class _SkipButtonState extends State<SkipButton> {
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(12.0),
-      splashColor: AppUtility.secondaryColor,
+      splashColor: AppUtility.kSecondaryColor,
       onTap: () {
         setState(() {
           widget.pageController.animateToPage(
@@ -36,7 +36,7 @@ class _SkipButtonState extends State<SkipButton> {
         height: widget.size.height / 13,
         decoration: BoxDecoration(
           border: Border.all(
-            color: AppUtility.secondaryColor,
+            color: AppUtility.kSecondaryColor,
             width: 2,
           ),
           borderRadius: BorderRadius.circular(12.0),

@@ -4,5 +4,6 @@ A new Flutter project.
 
 ## Assignment
 
-Almost all images is from 
+Some images and icons is from 
 [StorySet](https://storyset.com/)
+[Svgrepo](https://www.svgrepo.com/)
