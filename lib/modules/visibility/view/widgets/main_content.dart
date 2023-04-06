@@ -20,7 +20,8 @@ class MainContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding:
+            const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 0, top: 8),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -119,7 +120,9 @@ class MainContent extends StatelessWidget {
                   Text(
                     presenter.userLocation!.results!.date!.monthFormat(),
                     style: TextUtility.body1.copyWith(
-                        color: Colors.black, fontFamily: 'Nunito-Medium'),
+                      color: Colors.black,
+                      fontFamily: 'Nunito-Medium',
+                    ),
                   ),
                 ],
               ),
@@ -128,6 +131,17 @@ class MainContent extends StatelessWidget {
 
             // ? Date list
             DateList(presenter),
+
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0),
+              child: Text(
+                'Histórico',
+                style: TextUtility.body1.copyWith(
+                  color: Colors.black,
+                  fontFamily: 'Nunito-Medium',
+                ),
+              ),
+            ),
 
             // ? Historic
             Expanded(
