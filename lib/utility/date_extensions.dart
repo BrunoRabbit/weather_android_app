@@ -17,4 +17,12 @@ extension DateExtension on String {
     String month = outputFormat.format(inputDate);
     return month[0].toUpperCase() + month.substring(1);
   }
+
+   String extractDayFromDateString() {
+    if(!this[0].contains('0')){
+      return this[0] + this[1];
+    }else{
+      return this[1];
+    }
+  }
 }
