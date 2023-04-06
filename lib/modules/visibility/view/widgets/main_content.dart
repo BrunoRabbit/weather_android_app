@@ -70,19 +70,17 @@ class MainContent extends StatelessWidget {
               height: 200,
               child: CustomPaint(
                 painter: SemiCircle(
-                  percentage:
-                      presenter.userLocation!.results!.cloudiness ?? 1,
+                  percentage: presenter.userLocation!.results!.cloudiness ?? 1,
                 ),
                 child: Padding(
                   padding: const EdgeInsets.only(
                     top: 30.0,
-                    right: 6,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        " ${presenter.userLocation!.results!.cloudiness!}",
+                        "${presenter.userLocation!.results!.cloudiness!}",
                         style: TextUtility.title.medium.copyWith(
                           color: Colors.black87,
                           fontFamily: 'Nunito-SemiBold',
@@ -90,7 +88,7 @@ class MainContent extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.only(
-                          left: 16.0,
+                          left: 10.0,
                         ),
                         child: Text(
                           "Porcentagem",
