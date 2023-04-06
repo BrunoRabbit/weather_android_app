@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:location/location.dart';
+import 'package:weather_android_app/components/app_text.dart';
 import 'package:weather_android_app/modules/home/entity/user_lat_long.dart';
 import 'package:weather_android_app/modules/home/presenter/home_presenter.dart';
 import 'package:weather_android_app/modules/home/view/widgets/main_drawer.dart';
@@ -59,13 +60,13 @@ class _HomeViewState extends State<HomeView>
         centerTitle: true,
         title: Observer(
           builder: (context) => presenter.userLocation != null
-              ? Text(
+              ? AppText(
                   presenter.userLocation!.results!.city!,
+                  size: 20,
                 )
               : Container(),
         ),
         actions: [
-         
           Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: IconButton(
@@ -153,19 +154,22 @@ class _HomeViewState extends State<HomeView>
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Você recusou a permissão'),
+        title: const AppText('Você recusou a permissão', family: 'Medium'),
         content: SingleChildScrollView(
           child: ListBody(
             children: const <Widget>[
-              Text(
-                  'Para utilizar o aplicativo é necessaria a permição da sua localização.'),
-              Text('Não utilizaremos sua localização sem seu consentimento.'),
+              AppText(
+                'Para utilizar o aplicativo é necessaria a permição da sua localização.',
+              ),
+              AppText(
+                'Não utilizaremos sua localização sem seu consentimento.',
+              ),
             ],
           ),
         ),
         actions: <Widget>[
           TextButton(
-            child: const Text('Ok'),
+            child: const AppText('Ok'),
             onPressed: () {
               // TODO- LOGOUT
               Navigator.of(context).pushReplacement(

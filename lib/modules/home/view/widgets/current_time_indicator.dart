@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_android_app/components/app_text.dart';
 import 'package:weather_android_app/utility/text_utility.dart';
 
 class CurrentTimeIndicator extends StatelessWidget {
@@ -17,11 +18,10 @@ class CurrentTimeIndicator extends StatelessWidget {
       children: [
         Container(
           alignment: Alignment.center,
-          child: Text(
+          child: AppText(
             title,
-            style: TextUtility.headline3.copyWith(
-              fontFamily: 'Nunito-Medium',
-            ),
+            size: TextUtility.headline3.fontSize,
+            family: 'Medium',
           ),
         ),
         Icon(

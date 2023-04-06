@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:weather_android_app/components/app_text.dart';
 import 'package:weather_android_app/modules/home/presenter/home_presenter.dart';
 import 'package:weather_android_app/modules/visibility/view/visibility_view.dart';
 import 'package:weather_android_app/routes/app_routes.dart';
@@ -25,12 +26,10 @@ class MainDrawer extends StatelessWidget {
             alignment: Alignment.bottomLeft,
             padding: const EdgeInsets.all(20),
             color: AppUtility.kSecondaryColor,
-            child: Text(
+            child: AppText(
               'Weather App',
-              style: TextUtility.headline2.copyWith(
-                fontFamily: 'Nunito-Bold',
-                fontSize: 30,
-              ),
+              size: TextUtility.headline2.copyWith(fontSize: 30).fontSize,
+              family: 'Bold',
             ),
           ),
           _ItemsDrawer(presenter: presenter),
@@ -57,12 +56,11 @@ class _ItemsDrawer extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
-        title: Text(
+        title: AppText(
           'Visibilidade',
-          style: TextUtility.headline3.copyWith(
-            color: Colors.black,
-            fontFamily: 'Nunito-Bold',
-          ),
+          size: TextUtility.headline3.fontSize,
+          family: 'Bold',
+          color: Colors.black,
         ),
         leading: Padding(
           padding: const EdgeInsets.only(left: 2.0),
@@ -76,7 +74,7 @@ class _ItemsDrawer extends StatelessWidget {
             AppRouter.createRoute(
               VisibilityView(presenter),
             ),
-           );
+          );
         },
       ),
     );
