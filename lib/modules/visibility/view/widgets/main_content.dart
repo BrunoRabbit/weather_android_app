@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:weather_android_app/modules/home/presenter/home_presenter.dart';
 import 'package:weather_android_app/modules/home/view/home_view.dart';
+import 'package:weather_android_app/modules/visibility/view/widgets/date_list.dart';
 import 'package:weather_android_app/modules/visibility/view/widgets/semi_circle_widget.dart';
 import 'package:weather_android_app/routes/app_routes.dart';
 import 'package:weather_android_app/utility/date_extensions.dart';
@@ -86,7 +87,7 @@ class MainContent extends StatelessWidget {
               height: 50,
             ),
 
-            // ? circle and date now
+            // ? Circle and date now
             Padding(
               padding: const EdgeInsets.only(top: 8.0, left: 16),
               child: Row(
@@ -123,6 +124,18 @@ class MainContent extends StatelessWidget {
                 ],
               ),
             ),
+            const SizedBox(height: 16),
+
+            // ? Date list
+            DateList(presenter),
+
+            // ? Historic
+            Expanded(
+              flex: 2,
+              child: Container(
+                color: Colors.yellow,
+              ),
+            )
           ],
         ),
       ),
