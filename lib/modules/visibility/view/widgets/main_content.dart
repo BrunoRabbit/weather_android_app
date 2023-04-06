@@ -46,7 +46,12 @@ class MainContent extends StatelessWidget {
               },
             ),
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.only(
+                bottom: 24.0,
+                top: 10,
+                left: 16.0,
+                right: 16.0,
+              ),
               child: Column(
                 children: [
                   Text(
@@ -62,22 +67,40 @@ class MainContent extends StatelessWidget {
             ),
             SizedBox(
               width: double.infinity,
-              height: 140,
+              height: 200,
               child: CustomPaint(
-                painter: SemiCircle(percentage: 100),
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 8,
-                    ),
-                    child: Text(
-                      '100%',
-                      style: TextUtility.headline1.medium.copyWith(
-                        color: Colors.black87,
-                        fontFamily: 'Nunito-SemiBold',
+                painter: SemiCircle(
+                  percentage:
+                      presenter.userLocation!.results!.cloudiness ?? 1,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    top: 30.0,
+                    right: 6,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        " ${presenter.userLocation!.results!.cloudiness!}",
+                        style: TextUtility.title.medium.copyWith(
+                          color: Colors.black87,
+                          fontFamily: 'Nunito-SemiBold',
+                        ),
                       ),
-                    ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: 16.0,
+                        ),
+                        child: Text(
+                          "Porcentagem",
+                          style: TextUtility.body1.bold.copyWith(
+                            color: Colors.grey,
+                            fontFamily: 'Nunito-Light',
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -108,15 +131,15 @@ class SemiCircle extends CustomPainter {
   final double semiArcSize = 140;
   final double startAngle = math.pi - 0.3;
   final double endAngle = 2 * math.pi;
-  final double spacing = .15;
+  final double spacing = .16;
 
   @override
   void paint(Canvas canvas, Size size) {
-    final center = Offset(size.width / 2, size.height);
+    final center = Offset(size.width / 2, size.height * .74);
     final paint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
-      ..strokeWidth = 10.0;
+      ..strokeWidth = 8.0;
 
     // * Draw the 3 arcs with spacing
     final rect = Rect.fromCircle(center: center, radius: semiArcSize);
@@ -171,14 +194,14 @@ class SemiCircle extends CustomPainter {
               100;
     }
     if (percentage > 50 && percentage <= 75) {
-      pointerAngle = .24 +
+      pointerAngle = .26 +
           startAngle +
           percentage *
               (endAngle - startAngle - (spacingCompensation * .8)) /
               100;
     }
     if (percentage > 75) {
-      pointerAngle = .366 +
+      pointerAngle = .42 +
           startAngle +
           percentage *
               (endAngle - startAngle - (spacingCompensation * .8)) /
