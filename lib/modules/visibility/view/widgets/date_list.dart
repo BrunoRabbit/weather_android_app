@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:weather_android_app/modules/home/presenter/home_presenter.dart';
+import 'package:weather_android_app/modules/home/view/home_view_model.dart';
 import 'package:weather_android_app/modules/visibility/presenter/visibility_presenter.dart';
-import 'package:weather_android_app/utility/date_extensions.dart';
-import 'package:weather_android_app/utility/text_utility.dart';
+import 'package:weather_android_app/utils/extensions/date_extensions.dart';
+import 'package:weather_android_app/utils/utility/text_utility.dart';
 
 class DateList extends StatelessWidget {
   DateList(
-    this.presenter, {
+    this._homeViewModel, {
     Key? key,
   }) : super(key: key);
 
-  final HomePresenter presenter;
+  final HomeViewModel _homeViewModel;
 
   final VisibilityPresenter _visibilityPresenter = VisibilityPresenter();
 
@@ -23,7 +23,7 @@ class DateList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
-          final user = presenter.userLocation!.results!.forecast![index];
+          final user = _homeViewModel.userLocation!.results!.forecast![index];
 
           return Observer(
             builder: (context) => GestureDetector(

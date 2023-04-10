@@ -1,12 +1,12 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import 'package:weather_android_app/modules/home/presenter/home_presenter.dart';
-import 'package:weather_android_app/utility/text_utility.dart';
+import 'package:weather_android_app/modules/home/view/home_view_model.dart';
+import 'package:weather_android_app/utils/utility/text_utility.dart';
 
 class SemiCircleWidget extends StatelessWidget {
-  const SemiCircleWidget(this.presenter, {Key? key}) : super(key: key);
+  const SemiCircleWidget(this.homeViewModel, {Key? key}) : super(key: key);
 
-  final HomePresenter presenter;
+  final HomeViewModel homeViewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class SemiCircleWidget extends StatelessWidget {
       child: CustomPaint(
         painter: SemiCircle(
           percentage:
-              presenter.userLocation!.results!.forecast![0].cloudiness ?? 1,
+              homeViewModel.userLocation!.results!.forecast![0].cloudiness ?? 1,
         ),
         child: Padding(
           padding: const EdgeInsets.only(
@@ -27,7 +27,7 @@ class SemiCircleWidget extends StatelessWidget {
             children: [
               const SizedBox(height: 5),
               Text(
-                "${presenter.userLocation!.results!.forecast![0].cloudiness ?? 1}",
+                "${homeViewModel.userLocation!.results!.forecast![0].cloudiness ?? 1}",
                 style: TextUtility.title.medium.copyWith(
                   color: Colors.black87,
                   fontFamily: 'Nunito-SemiBold',
