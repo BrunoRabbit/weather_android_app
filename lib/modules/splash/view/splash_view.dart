@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_android_app/components/gradient_scaffold.dart';
 import 'package:weather_android_app/modules/splash/entity/page_item.dart';
-import 'package:weather_android_app/modules/splash/presenter/splash_presenter.dart';
+import 'package:weather_android_app/modules/splash/view/splash_view_model.dart';
 import 'package:weather_android_app/modules/splash/view/widgets/dot_indicator.dart';
 import 'package:weather_android_app/modules/splash/view/widgets/page_view_animated.dart';
 import 'package:weather_android_app/utils/utility/app_utility.dart';
@@ -15,27 +15,25 @@ class SplashView extends StatefulWidget {
 
 class _SplashViewState extends State<SplashView> {
   late PageItem pageItem;
-  late PageController pageController;
   late Size size;
-
-  SplashPresenter presenter = SplashPresenter();
+  late SplashViewModel splashViewModel;
 
   @override
   void initState() {
     super.initState();
-    pageController = PageController(initialPage: 0);
+    splashViewModel = SplashViewModel();
   }
 
   @override
   void dispose() {
-    pageController.dispose();
+    splashViewModel.pageController.dispose();
     super.dispose();
   }
 
   @override
   void didChangeDependencies() {
-    size = MediaQuery.of(context).size;
     super.didChangeDependencies();
+    size = MediaQuery.of(context).size;
   }
 
   @override
@@ -56,16 +54,14 @@ class _SplashViewState extends State<SplashView> {
           children: [
             // ? Page View with animation
             PageViewAnimated(
-              pageController: pageController,
               size: size,
-              presenter: presenter,
+              splashViewModel: splashViewModel,
             ),
 
             // ? DOT INDICATOR
             DotIndicator(
-              pageController: pageController,
               size: size,
-              presenter: presenter,
+              splashViewModel: splashViewModel,
             ),
           ],
         ),

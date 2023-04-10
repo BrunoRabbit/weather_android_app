@@ -1,9 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:weather_android_app/modules/home/view/home_view.dart';
-import 'package:weather_android_app/modules/splash/presenter/splash_presenter.dart';
+import 'package:weather_android_app/modules/splash/view/splash_view_model.dart';
 import 'package:weather_android_app/modules/splash/view/widgets/auth_button.dart';
 import 'package:weather_android_app/modules/splash/view/widgets/page_list.dart';
 import 'package:weather_android_app/modules/splash/view/widgets/skip_button.dart';
@@ -12,14 +11,12 @@ import 'package:weather_android_app/routes/app_routes.dart';
 class DotIndicator extends StatelessWidget {
   const DotIndicator({
     super.key,
-    required this.pageController,
     required this.size,
-    required this.presenter,
+    required this.splashViewModel,
   });
 
-  final PageController pageController;
   final Size size;
-  final SplashPresenter presenter;
+  final SplashViewModel splashViewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +26,7 @@ class DotIndicator extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SmoothPageIndicator(
-            controller: pageController,
+            controller: splashViewModel.pageController,
             count: PageList.init().list.length,
             effect: ExpandingDotsEffect(
               spacing: 6.0,
@@ -40,17 +37,13 @@ class DotIndicator extends StatelessWidget {
               activeDotColor: Colors.white.withOpacity(.2),
               dotColor: Colors.white.withOpacity(.8),
             ),
-            onDotClicked: (newIndex) {
-              pageController.animateToPage(newIndex,
-                  duration: const Duration(milliseconds: 500),
-                  curve: Curves.ease);
-            },
+            onDotClicked: (newIndex) => splashViewModel.onDotClicked(newIndex),
           ),
           SizedBox(
             height: size.height / 16,
           ),
           Observer(
-            builder: (_) => presenter.currentIndex == 2
+            builder: (_) => splashViewModel.currentIndex == 2
                 ? Row(
                     children: [
                       Expanded(
@@ -79,7 +72,7 @@ class DotIndicator extends StatelessWidget {
                   )
                 : SkipButton(
                     size: size,
-                    pageController: pageController,
+                    splashViewModel: splashViewModel,
                   ),
           ),
         ],

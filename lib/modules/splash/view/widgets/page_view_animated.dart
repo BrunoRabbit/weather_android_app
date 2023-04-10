@@ -2,21 +2,19 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weather_android_app/components/app_text.dart';
-import 'package:weather_android_app/modules/splash/presenter/splash_presenter.dart';
+import 'package:weather_android_app/modules/splash/view/splash_view_model.dart';
 import 'package:weather_android_app/modules/splash/view/widgets/page_list.dart';
 import 'package:weather_android_app/utils/utility/text_utility.dart';
 
 class PageViewAnimated extends StatelessWidget {
   PageViewAnimated({
-    super.key,
-    required this.pageController,
+    Key? key,
     required this.size,
-    required this.presenter,
-  });
+    required this.splashViewModel,
+  }) : super(key: key);
 
-  final PageController pageController;
   final Size size;
-  final SplashPresenter presenter;
+  final SplashViewModel splashViewModel;
 
   final _list = PageList.init().list;
 
@@ -25,11 +23,9 @@ class PageViewAnimated extends StatelessWidget {
     return Expanded(
       flex: 3,
       child: PageView.builder(
-        controller: pageController,
+        controller: splashViewModel.pageController,
         itemCount: _list.length,
-        onPageChanged: (newIndex) {
-          presenter.changeIndex(newIndex);
-        },
+        onPageChanged: (newIndex) => splashViewModel.onPageChanged(newIndex),
         physics: const BouncingScrollPhysics(),
         itemBuilder: ((context, index) {
           return SizedBox(
@@ -77,6 +73,7 @@ class PageViewAnimated extends StatelessWidget {
     );
   }
 
+  // * Animate Splash View
   Widget animate(int index, int delay, Widget child) => index == 1
       ? FadeInDown(delay: Duration(milliseconds: delay), child: child)
       : FadeInUp(delay: Duration(milliseconds: delay), child: child);
