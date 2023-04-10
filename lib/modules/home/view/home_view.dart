@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:location/location.dart';
 import 'package:weather_android_app/components/app_text.dart';
-import 'package:weather_android_app/modules/home/entity/user_lat_long.dart';
 import 'package:weather_android_app/modules/home/presenter/home_presenter.dart';
+import 'package:weather_android_app/modules/home/view/home_view_model.dart';
 import 'package:weather_android_app/modules/home/view/widgets/main_drawer.dart';
 import 'package:weather_android_app/modules/home/view/widgets/weather_main_content.dart';
 import 'package:weather_android_app/modules/home/view/widgets/weather_week.dart';
@@ -19,10 +18,11 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView>
     with SingleTickerProviderStateMixin {
+  final HomeViewModel _homeViewModel = HomeViewModel();
+
   late AnimationController _controller;
   late Size size;
-  late UserLatLong userLatLong;
-  HomePresenter presenter = HomePresenter();
+  late HomePresenter presenter;
 
   @override
   void initState() {
@@ -35,7 +35,8 @@ class _HomeViewState extends State<HomeView>
       vsync: this,
     )..stop(canceled: true); // ..repeat();
 
-    checkServiceLocation();
+    presenter = HomePresenter(_homeViewModel);
+    presenter.checkServiceLocation();
   }
 
   @override
@@ -59,9 +60,9 @@ class _HomeViewState extends State<HomeView>
         backgroundColor: Colors.transparent,
         centerTitle: true,
         title: Observer(
-          builder: (context) => presenter.userLocation != null
+          builder: (context) => _homeViewModel.userLocation != null
               ? AppText(
-                  presenter.userLocation!.results!.city!,
+                  _homeViewModel.userLocation!.results!.city!,
                   size: 20,
                 )
               : Container(),
@@ -85,102 +86,77 @@ class _HomeViewState extends State<HomeView>
           ),
         ],
       ),
-      drawer: MainDrawer(presenter: presenter),
-      body: Observer(
-        builder: (_) => presenter.userLocation != null
+      drawer: MainDrawer(homeViewModel: _homeViewModel),
+      body: Observer(builder: (context) {
+        if (_homeViewModel.isDisplayedDialog) {
+          WidgetsBinding.instance.addPostFrameCallback(
+            (_) => displayDialog(context),
+          );
+        }
+        return _homeViewModel.userLocation != null
             ? Column(
                 children: [
                   // ? animated container & today weather info
                   WeatherMainContent(
                     size: size,
                     controller: _controller,
-                    userLocation: presenter.userLocation,
+                    userLocation: _homeViewModel.userLocation,
                   ),
 
                   // ? week weather info
                   WeatherWeek(
-                    userLocation: presenter.userLocation,
+                    userLocation: _homeViewModel.userLocation,
                   ),
                 ],
               )
             : const Center(
                 child: CircularProgressIndicator(),
-              ),
-      ),
-    );
-  }
-
-  // * [checkServiceLocation] and [askDeviceLocation] both is to verify if device
-  // * can use location services, and if enable, ask for user permission
-  Future checkServiceLocation() async {
-    Location location = Location();
-
-    bool serviceEnabled = await location.serviceEnabled();
-
-    if (!serviceEnabled) {
-      serviceEnabled = await location.requestService();
-      if (!serviceEnabled) return;
-    }
-
-    await askDeviceLocation(location);
-  }
-
-  Future askDeviceLocation(Location location) async {
-    PermissionStatus permissionGranted = await location.hasPermission();
-
-    if (permissionGranted == PermissionStatus.denied) {
-      permissionGranted = await location.requestPermission();
-      if (permissionGranted != PermissionStatus.granted) {
-        WidgetsBinding.instance.addPostFrameCallback(
-          (_) => displayDialog(context),
-        );
-        return;
-      }
-    }
-    if (permissionGranted == PermissionStatus.granted) {
-      LocationData locationData = await location.getLocation();
-
-      userLatLong = UserLatLong(
-        latitude: locationData.latitude,
-        longitude: locationData.longitude,
-      );
-
-      await presenter.getUserLocationData(userLatLong);
-    }
-  }
-
-  // ! Case user deny permission, show Dialog and logOut
-  Future<void> displayDialog(BuildContext context) async {
-    return showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const AppText('Você recusou a permissão', family: 'Medium'),
-        content: SingleChildScrollView(
-          child: ListBody(
-            children: const <Widget>[
-              AppText(
-                'Para utilizar o aplicativo é necessaria a permição da sua localização.',
-              ),
-              AppText(
-                'Não utilizaremos sua localização sem seu consentimento.',
-              ),
-            ],
-          ),
-        ),
-        actions: <Widget>[
-          TextButton(
-            child: const AppText('Ok'),
-            onPressed: () {
-              // TODO- LOGOUT
-              Navigator.of(context).pushReplacement(
-                AppRouter.createRoute(
-                  const SplashView(),
-                ),
               );
-            },
-          ),
-        ],
-      ),
+      }),
     );
   }
+}
+
+// ! Case user deny permission, show Dialog and logOut
+Future<void> displayDialog(BuildContext context) async {
+  return showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: const AppText(
+        'Você recusou a permissão',
+        family: 'Medium',
+        color: Colors.black87,
+      ),
+      content: SingleChildScrollView(
+        child: ListBody(
+          children: const <Widget>[
+            AppText(
+              'Para utilizar o aplicativo é necessaria a permição da sua localização.',
+              color: Colors.black87,
+            ),
+            AppText(
+              'Não utilizaremos sua localização sem seu consentimento.',
+              color: Colors.black87,
+            ),
+          ],
+        ),
+      ),
+      actions: <Widget>[
+        TextButton(
+          child: const AppText(
+            'Ok',
+            color: Colors.black87,
+          ),
+          onPressed: () {
+            // TODO- LOGOUT
+            Navigator.of(context).pushReplacement(
+              AppRouter.createRoute(
+                const SplashView(),
+              ),
+            );
+          },
+        ),
+      ],
+    ),
+  );
 }

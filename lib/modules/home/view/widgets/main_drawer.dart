@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weather_android_app/components/app_text.dart';
-import 'package:weather_android_app/modules/home/presenter/home_presenter.dart';
+import 'package:weather_android_app/modules/home/view/home_view_model.dart';
 import 'package:weather_android_app/modules/visibility/view/visibility_view.dart';
 import 'package:weather_android_app/routes/app_routes.dart';
 import 'package:weather_android_app/utility/app_utility.dart';
@@ -10,10 +10,10 @@ import 'package:weather_android_app/utility/text_utility.dart';
 class MainDrawer extends StatelessWidget {
   const MainDrawer({
     Key? key,
-    required this.presenter,
+    required this.homeViewModel,
   }) : super(key: key);
 
-  final HomePresenter presenter;
+  final HomeViewModel homeViewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class MainDrawer extends StatelessWidget {
               family: 'Bold',
             ),
           ),
-          _ItemsDrawer(presenter: presenter),
+          _ItemsDrawer(homeViewModel),
         ],
       ),
     );
@@ -41,12 +41,12 @@ class MainDrawer extends StatelessWidget {
 
 // ? VISIBILITY - HUMIDITY
 class _ItemsDrawer extends StatelessWidget {
-  const _ItemsDrawer({
+  const _ItemsDrawer(
+    this.homeViewModel, {
     Key? key,
-    required this.presenter,
   }) : super(key: key);
 
-  final HomePresenter presenter;
+  final HomeViewModel homeViewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +72,7 @@ class _ItemsDrawer extends StatelessWidget {
         onTap: () {
           Navigator.of(context).push(
             AppRouter.createRoute(
-              VisibilityView(presenter),
+              VisibilityView(homeViewModel),
             ),
           );
         },
