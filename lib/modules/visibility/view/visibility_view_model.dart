@@ -2,11 +2,11 @@
 
 import 'package:mobx/mobx.dart';
 
-part 'visibility_presenter.g.dart';
+part 'visibility_view_model.g.dart';
 
-class VisibilityPresenter = _VisibilityPresenter with _$VisibilityPresenter;
+class VisibilityViewModel = _VisibilityViewModel with _$VisibilityViewModel;
 
-abstract class _VisibilityPresenter with Store {
+abstract class _VisibilityViewModel with Store {
   @observable
   int currentIndex = 0;
 

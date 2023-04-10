@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:weather_android_app/components/app_text.dart';
 import 'package:weather_android_app/modules/home/view/home_view.dart';
 import 'package:weather_android_app/modules/home/view/home_view_model.dart';
+import 'package:weather_android_app/modules/visibility/view/visibility_view_model.dart';
 import 'package:weather_android_app/modules/visibility/view/widgets/date_list.dart';
 import 'package:weather_android_app/modules/visibility/view/widgets/semi_circle_widget.dart';
 import 'package:weather_android_app/routes/app_routes.dart';
@@ -10,12 +11,14 @@ import 'package:weather_android_app/utils/extensions/date_extensions.dart';
 import 'package:weather_android_app/utils/utility/text_utility.dart';
 
 class MainContent extends StatelessWidget {
-  const MainContent({
+  MainContent({
     Key? key,
     required this.homeViewModel,
   }) : super(key: key);
 
   final HomeViewModel homeViewModel;
+
+  final VisibilityViewModel viewModel = VisibilityViewModel();
 
   @override
   Widget build(BuildContext context) {
@@ -42,14 +45,20 @@ class MainContent extends StatelessWidget {
               ],
             ),
 
-            // ? Date
+            // ? Date Time now
             Observer(
               builder: (context) {
+                final dayMonth = homeViewModel.userLocation!.results!
+                    .forecast![viewModel.currentIndex].date!;
+                final year =
+                    homeViewModel.userLocation!.results!.date!.substring(6, 10);
+                final dateTime = '$dayMonth/$year';
+
                 return homeViewModel.userLocation != null
                     ? Padding(
                         padding: const EdgeInsets.only(left: 16.0, top: 8),
                         child: AppText(
-                          homeViewModel.userLocation!.results!.date!.dateFormat(),
+                          dateTime.dateFormat(),
                           style: TextUtility.headline3.copyWith(
                             color: Colors.grey,
                             fontFamily: 'Nunito-SemiBold',
@@ -83,7 +92,7 @@ class MainContent extends StatelessWidget {
             ),
 
             // ? SemiCirle custom paint
-            SemiCircleWidget(homeViewModel),
+            SemiCircleWidget(homeViewModel, viewModel),
 
             const SizedBox(
               height: 50,
@@ -131,7 +140,7 @@ class MainContent extends StatelessWidget {
             const SizedBox(height: 16),
 
             // ? Date list
-            DateList(homeViewModel),
+            DateList(homeViewModel, viewModel),
 
             Padding(
               padding: const EdgeInsets.only(left: 16.0),

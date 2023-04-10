@@ -1,61 +1,80 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:weather_android_app/components/app_text.dart';
 import 'package:weather_android_app/modules/home/view/home_view_model.dart';
+import 'package:weather_android_app/modules/visibility/view/visibility_view_model.dart';
 import 'package:weather_android_app/utils/utility/text_utility.dart';
 
 class SemiCircleWidget extends StatelessWidget {
-  const SemiCircleWidget(this.homeViewModel, {Key? key}) : super(key: key);
+  const SemiCircleWidget(
+    this.homeViewModel,
+    this.viewModel, {
+    Key? key,
+  }) : super(key: key);
 
   final HomeViewModel homeViewModel;
+  final VisibilityViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
       height: 200,
-      child: CustomPaint(
-        painter: SemiCircle(
-          percentage:
-              homeViewModel.userLocation!.results!.forecast![0].cloudiness ?? 1,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.only(
-            top: 30.0,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(height: 5),
-              AppText(
-                "${homeViewModel.userLocation!.results!.forecast![0].cloudiness ?? 1}",
-                style: TextUtility.title.medium.copyWith(
-                  color: Colors.black87,
-                  fontFamily: 'Nunito-SemiBold',
-                ),
+      child: Observer(
+        builder: (context) {
+          double? cloudiness = homeViewModel.userLocation!.results!
+              .forecast![viewModel.currentIndex].cloudiness;
+
+          // ? Custom Paint
+          return CustomPaint(
+            painter: SemiCircle(
+              percentage: cloudiness ?? 1,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: 30.0,
               ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  left: 10.0,
-                ),
-                child: AppText(
-                  "Porcentagem",
-                  style: TextUtility.body1.bold.copyWith(
-                    color: Colors.grey,
-                    fontFamily: 'Nunito-Light',
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // ? Inside Custom Paint, Text and Percentage
+                  const SizedBox(height: 5),
+
+                  // ? Text
+                  AppText(
+                    "${cloudiness ?? 1}",
+                    style: TextUtility.title.medium.copyWith(
+                      color: Colors.black87,
+                      fontFamily: 'Nunito-SemiBold',
+                    ),
                   ),
-                ),
+
+                  // ? Percentage
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 10.0,
+                    ),
+                    child: AppText(
+                      "Porcentagem",
+                      style: TextUtility.body1.bold.copyWith(
+                        color: Colors.grey,
+                        fontFamily: 'Nunito-Light',
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
 }
 
-// ! There are 2 semi-circles, I'll call them `sc`, scA(grey) and scB(purple), superimpose scB over scA respecting its spacing
 // ? I thought the code is a bit complex so I thought I need to explain for the near future
+// ! There are 2 semi-circles, I'll call them `sc`, scA(grey) and scB(purple), superimpose scB over scA respecting its spacing
 class SemiCircle extends CustomPainter {
   double percentage;
 

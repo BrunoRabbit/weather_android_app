@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:weather_android_app/components/app_text.dart';
 import 'package:weather_android_app/modules/home/view/home_view_model.dart';
-import 'package:weather_android_app/modules/visibility/presenter/visibility_presenter.dart';
+import 'package:weather_android_app/modules/visibility/view/visibility_view_model.dart';
 import 'package:weather_android_app/utils/extensions/date_extensions.dart';
 import 'package:weather_android_app/utils/utility/text_utility.dart';
 
 class DateList extends StatelessWidget {
-  DateList(
-    this._homeViewModel, {
+  const DateList(
+    this.homeViewModel,
+    this.viewModel, {
     Key? key,
   }) : super(key: key);
 
-  final HomeViewModel _homeViewModel;
-
-  final VisibilityPresenter _visibilityPresenter = VisibilityPresenter();
+  final HomeViewModel homeViewModel;
+  final VisibilityViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +24,12 @@ class DateList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
-          final user = _homeViewModel.userLocation!.results!.forecast![index];
+          final user = homeViewModel.userLocation!.results!.forecast![index];
 
           return Observer(
             builder: (context) => GestureDetector(
               onTap: () {
-                _visibilityPresenter.changeIndex(index);
+                viewModel.changeIndex(index);
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(
@@ -40,7 +40,7 @@ class DateList extends StatelessWidget {
                   height: 60,
                   width: 50,
                   decoration: BoxDecoration(
-                    color: _visibilityPresenter.currentIndex == index
+                    color: viewModel.currentIndex == index
                         ? Colors.grey[300]
                         : Colors.grey[200],
                     borderRadius: BorderRadius.circular(8),
@@ -50,19 +50,22 @@ class DateList extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        // ? week name
                         AppText(
                           user.weekday ?? 'UNK',
                           style: TextUtility.body2.copyWith(
-                            color: _visibilityPresenter.currentIndex == index
+                            color: viewModel.currentIndex == index
                                 ? Colors.black
                                 : Colors.grey[500],
                             fontFamily: 'Nunito-Regular',
                           ),
                         ),
+
+                        // ? week day
                         AppText(
                           user.date!.extractDayFromDateString(),
                           style: TextUtility.body2.copyWith(
-                            color: _visibilityPresenter.currentIndex == index
+                            color: viewModel.currentIndex == index
                                 ? Colors.black
                                 : Colors.grey[500],
                             fontFamily: 'Nunito-Regular',
