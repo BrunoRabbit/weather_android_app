@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:weather_android_app/utility/app_utility.dart';
-import 'package:weather_android_app/utility/text_utility.dart';
+import 'package:weather_android_app/utils/utility/app_utility.dart';
+import 'package:weather_android_app/utils/utility/text_utility.dart';
 
 class SkipButton extends StatefulWidget {
   const SkipButton({

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_android_app/components/app_text.dart';
-import 'package:weather_android_app/utility/text_utility.dart';
+import 'package:weather_android_app/utils/utility/text_utility.dart';
 
 class CurrentTimeIndicator extends StatelessWidget {
   const CurrentTimeIndicator({

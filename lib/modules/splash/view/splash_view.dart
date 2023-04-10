@@ -4,7 +4,7 @@ import 'package:weather_android_app/modules/splash/entity/page_item.dart';
 import 'package:weather_android_app/modules/splash/presenter/splash_presenter.dart';
 import 'package:weather_android_app/modules/splash/view/widgets/dot_indicator.dart';
 import 'package:weather_android_app/modules/splash/view/widgets/page_view_animated.dart';
-import 'package:weather_android_app/utility/app_utility.dart';
+import 'package:weather_android_app/utils/utility/app_utility.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);

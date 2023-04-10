@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_android_app/utility/text_utility.dart';
+import 'package:weather_android_app/utils/utility/text_utility.dart';
 
 class AuthButton extends StatelessWidget {
   const AuthButton({

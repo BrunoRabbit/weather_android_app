@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:weather_android_app/utility/entity_extensions.dart';
+import 'package:weather_android_app/utils/extensions/entity_extensions.dart';
 
 class UserLocation {
   String? by;

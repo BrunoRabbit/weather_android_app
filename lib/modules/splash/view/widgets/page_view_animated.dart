@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weather_android_app/modules/splash/presenter/splash_presenter.dart';
 import 'package:weather_android_app/modules/splash/view/widgets/page_list.dart';
-import 'package:weather_android_app/utility/text_utility.dart';
+import 'package:weather_android_app/utils/utility/text_utility.dart';
 
 class PageViewAnimated extends StatelessWidget {
   PageViewAnimated({

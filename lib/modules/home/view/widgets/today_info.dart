@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:weather_android_app/modules/home/entity/user_location.dart';
 import 'package:weather_android_app/modules/home/view/widgets/current_time_indicator.dart';
 
-import 'package:weather_android_app/utility/text_utility.dart';
+import 'package:weather_android_app/utils/utility/text_utility.dart';
 
 class TodayInfo extends StatelessWidget {
   const TodayInfo(this.userLocation, {super.key});

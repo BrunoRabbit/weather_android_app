@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_android_app/modules/splash/entity/page_item.dart';
-import 'package:weather_android_app/utility/text_utility.dart';
+import 'package:weather_android_app/utils/utility/text_utility.dart';
 
 class PageList {
   late List<PageItem> list;
