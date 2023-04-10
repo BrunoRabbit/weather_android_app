@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:weather_android_app/components/app_text.dart';
 import 'package:weather_android_app/modules/home/view/home_view_model.dart';
 import 'package:weather_android_app/modules/visibility/presenter/visibility_presenter.dart';
 import 'package:weather_android_app/utils/extensions/date_extensions.dart';
@@ -49,7 +50,7 @@ class DateList extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        AppText(
                           user.weekday ?? 'UNK',
                           style: TextUtility.body2.copyWith(
                             color: _visibilityPresenter.currentIndex == index
@@ -58,7 +59,7 @@ class DateList extends StatelessWidget {
                             fontFamily: 'Nunito-Regular',
                           ),
                         ),
-                        Text(
+                        AppText(
                           user.date!.extractDayFromDateString(),
                           style: TextUtility.body2.copyWith(
                             color: _visibilityPresenter.currentIndex == index

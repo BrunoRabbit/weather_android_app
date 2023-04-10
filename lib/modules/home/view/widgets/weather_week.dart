@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:weather_android_app/components/app_text.dart';
 
 import 'package:weather_android_app/modules/home/entity/user_location.dart';
-import 'package:weather_android_app/utility/text_utility.dart';
+import 'package:weather_android_app/utils/utility/text_utility.dart';
+import 'package:weather_android_app/utils/utility/weekday_utility.dart';
 
 enum WeatherDescription {
   parcialmenteNublado,
@@ -23,6 +24,13 @@ class WeatherWeek extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final weekDetails = userLocation?.results?.forecast;
+
+    final style = TextUtility.headline3.medium.copyWith(
+      color: const Color(0xFF969696),
+      fontFamily: 'Nunito-Bold',
+      fontSize: 20,
+    );
+
     return Expanded(
       child: ListView.builder(
         padding: const EdgeInsets.only(top: 0, bottom: 12),
@@ -43,21 +51,20 @@ class WeatherWeek extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    _CustomText(
-                      _getWeekDay(weekDetails[index + 1].weekday!),
-                      style: TextUtility.subtitle2.medium.copyWith(
-                        color: const Color(0xFF969696),
-                        fontFamily: 'Nunito-Bold',
-                        fontSize: 20,
-                      ),
+                    AppText(
+                      WeekDayUtility.getWeekDay(
+                          weekDetails[index + 1].weekday!),
+                      style: style,
                     ),
                     const Spacer(),
-                    _CustomText(
+                    AppText(
                       "${weekDetails[index + 1].max}°",
+                      style: style,
                     ),
                     const SizedBox(width: 14),
                     Icon(
-                      getIconData(weekDetails[index + 1].description!),
+                      WeekDayUtility.getIconData(
+                          weekDetails[index + 1].description!),
                       color: const Color(0xFF969696),
                     ),
                   ],
@@ -67,90 +74,6 @@ class WeatherWeek extends StatelessWidget {
           );
         },
       ),
-    );
-  }
-
-  String _getWeekDay(String day) {
-    Map<String, String> weekDay = {
-      "Seg": "Segunda",
-      "Ter": "Terça",
-      "Qua": "Quarta",
-      "Qui": "Quinta",
-      "Sex": "Sexta",
-      "Sáb": "Sábado",
-      "Dom": "Domingo",
-    };
-
-    return weekDay[day]!;
-  }
-
-  // * transform letter to title format: example, somethingTodo => Something todo
-  String titleFormat(String description) {
-    String result = "";
-    bool newWord = true;
-
-    for (int i = 0; i < description.length; i++) {
-      if (newWord) {
-        result += description[i].toUpperCase();
-        newWord = false;
-      } else {
-        if (description[i] == description[i].toUpperCase()) {
-          result += ' ';
-        }
-        result += description[i].toLowerCase();
-      }
-
-      if (description[i] == ' ') {
-        newWord = true;
-      }
-    }
-
-    return result;
-  }
-
-  IconData getIconData(String details) {
-    String txt = details;
-    
-    if (txt
-        .contains(titleFormat(WeatherDescription.parcialmenteNublado.name))) {
-      return FontAwesomeIcons.cloudSun;
-    }
-    if (txt.contains(titleFormat(WeatherDescription.chuva.name))) {
-      return FontAwesomeIcons.cloudRain;
-    }
-    if (txt.contains(titleFormat(WeatherDescription.tempoLimpo.name))) {
-      return FontAwesomeIcons.solidSun;
-    }
-    if (txt.contains(titleFormat(WeatherDescription.chuvasEsparsas.name))) {
-      return FontAwesomeIcons.cloudSunRain;
-    }
-    if (txt.contains(titleFormat(WeatherDescription.tempoNublado.name))) {
-      return FontAwesomeIcons.cloud;
-    }
-    return Icons.image_not_supported_outlined;
-  }
-}
-
-class _CustomText extends StatelessWidget {
-  const _CustomText(
-    this.text, {
-    this.style,
-    Key? key,
-  }) : super(key: key);
-
-  final String text;
-  final TextStyle? style;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: style ??
-          TextUtility.headline3.medium.copyWith(
-            color: const Color(0xFF969696),
-            fontFamily: 'Nunito-Bold',
-            fontSize: 20,
-          ),
     );
   }
 }

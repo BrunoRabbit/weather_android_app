@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_android_app/components/app_text.dart';
 import 'package:weather_android_app/utils/utility/text_utility.dart';
 
 class AuthButton extends StatelessWidget {
@@ -29,7 +30,7 @@ class AuthButton extends StatelessWidget {
               ),
               borderRadius: BorderRadius.circular(12.0)),
           child: Center(
-            child: Text(
+            child: AppText(
               title,
               style: TextUtility.headline3,
             ),

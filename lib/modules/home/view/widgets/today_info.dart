@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:weather_android_app/components/app_text.dart';
 import 'package:weather_android_app/modules/home/entity/user_location.dart';
 import 'package:weather_android_app/modules/home/view/widgets/current_time_indicator.dart';
 
@@ -24,7 +25,7 @@ class TodayInfo extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              AppText(
                 "${weatherInfo?.temp.toString() ?? '18'}°",
                 style: TextUtility.headline1.medium
                     .copyWith(fontFamily: 'Nunito-Medium'),
@@ -42,7 +43,7 @@ class TodayInfo extends StatelessWidget {
                 icon: FontAwesomeIcons.caretUp,
               ),
               Expanded(
-                child: Text(
+                child: AppText(
                   forecastInfo?.description ?? 'Desconhecido',
                   style: TextUtility.headline3.medium.copyWith(
                     fontFamily: 'Nunito-Medium',

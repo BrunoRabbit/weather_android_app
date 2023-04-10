@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_android_app/components/app_text.dart';
 import 'package:weather_android_app/modules/splash/entity/page_item.dart';
 import 'package:weather_android_app/utils/utility/text_utility.dart';
 
@@ -17,13 +18,13 @@ class PageList {
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 6),
-              child: Text(
+              child: AppText(
                 "Weather App",
                 textAlign: TextAlign.center,
                 style: TextUtility.headline1,
               ),
             ),
-            Text(
+            AppText(
               "Sua solução alternativa para ver o clima",
               style:
                   TextUtility.body1.italic.copyWith(fontFamily: 'Nunito-Bold'),
@@ -42,13 +43,13 @@ class PageList {
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 6),
-              child: Text(
+              child: AppText(
                 "Como seus dados são utilizados?",
                 textAlign: TextAlign.center,
                 style: TextUtility.headline3,
               ),
             ),
-            Text(
+            AppText(
               "Utilizamos seus dados apenas para armazenar seu histórico",
               style:
                   TextUtility.body1.italic.copyWith(fontFamily: 'Nunito-Bold'),
@@ -67,13 +68,13 @@ class PageList {
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 6),
-              child: Text(
+              child: AppText(
                 "Detalhes do clima",
                 textAlign: TextAlign.center,
                 style: TextUtility.headline1,
               ),
             ),
-            Text(
+            AppText(
              "Veja dados precisos com apenas um clique",
               style:
                   TextUtility.body1.italic.copyWith(fontFamily: 'Nunito-Bold'),

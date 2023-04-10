@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_android_app/components/app_text.dart';
 import 'package:weather_android_app/utils/utility/app_utility.dart';
 import 'package:weather_android_app/utils/utility/text_utility.dart';
 
@@ -42,7 +43,7 @@ class _SkipButtonState extends State<SkipButton> {
           borderRadius: BorderRadius.circular(12.0),
         ),
         child: Center(
-          child: Text(
+          child: AppText(
             "Pular",
             style: TextUtility.headline3,
           ),

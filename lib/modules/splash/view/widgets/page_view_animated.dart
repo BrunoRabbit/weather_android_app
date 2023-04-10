@@ -1,6 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:weather_android_app/components/app_text.dart';
 import 'package:weather_android_app/modules/splash/presenter/splash_presenter.dart';
 import 'package:weather_android_app/modules/splash/view/widgets/page_list.dart';
 import 'package:weather_android_app/utils/utility/text_utility.dart';
@@ -55,7 +56,7 @@ class PageViewAnimated extends StatelessWidget {
                     child: animate(
                       index,
                       300,
-                      Text(
+                      AppText(
                         _list[index].title,
                         textAlign: TextAlign.center,
                         style: TextUtility.headline1,

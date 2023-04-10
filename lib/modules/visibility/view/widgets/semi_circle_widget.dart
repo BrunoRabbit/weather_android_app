@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:weather_android_app/components/app_text.dart';
 import 'package:weather_android_app/modules/home/view/home_view_model.dart';
 import 'package:weather_android_app/utils/utility/text_utility.dart';
 
@@ -26,7 +27,7 @@ class SemiCircleWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const SizedBox(height: 5),
-              Text(
+              AppText(
                 "${homeViewModel.userLocation!.results!.forecast![0].cloudiness ?? 1}",
                 style: TextUtility.title.medium.copyWith(
                   color: Colors.black87,
@@ -37,7 +38,7 @@ class SemiCircleWidget extends StatelessWidget {
                 padding: const EdgeInsets.only(
                   left: 10.0,
                 ),
-                child: Text(
+                child: AppText(
                   "Porcentagem",
                   style: TextUtility.body1.bold.copyWith(
                     color: Colors.grey,

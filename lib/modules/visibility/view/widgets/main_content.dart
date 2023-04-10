@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:weather_android_app/components/app_text.dart';
 import 'package:weather_android_app/modules/home/view/home_view.dart';
 import 'package:weather_android_app/modules/home/view/home_view_model.dart';
 import 'package:weather_android_app/modules/visibility/view/widgets/date_list.dart';
@@ -47,7 +48,7 @@ class MainContent extends StatelessWidget {
                 return homeViewModel.userLocation != null
                     ? Padding(
                         padding: const EdgeInsets.only(left: 16.0, top: 8),
-                        child: Text(
+                        child: AppText(
                           homeViewModel.userLocation!.results!.date!.dateFormat(),
                           style: TextUtility.headline3.copyWith(
                             color: Colors.grey,
@@ -69,7 +70,7 @@ class MainContent extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  Text(
+                  AppText(
                     'Visibilidade',
                     style: TextUtility.headline2.copyWith(
                       color: Colors.black87,
@@ -134,7 +135,7 @@ class MainContent extends StatelessWidget {
 
             Padding(
               padding: const EdgeInsets.only(left: 16.0),
-              child: Text(
+              child: AppText(
                 'Histórico',
                 style: TextUtility.body1.copyWith(
                   color: Colors.black,
