@@ -26,10 +26,10 @@ class SemiCircleWidget extends StatelessWidget {
           double? cloudiness = homeViewModel.userLocation!.results!
               .forecast![viewModel.currentIndex].cloudiness;
 
-          // ? Custom Paint
+          // ? Animation + Custom Paint
           return CustomPaint(
             painter: SemiCircle(
-              percentage: cloudiness ?? 1,
+              percentage: cloudiness ?? 0,
             ),
             child: Padding(
               padding: const EdgeInsets.only(
