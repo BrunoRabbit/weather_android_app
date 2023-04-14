@@ -9,7 +9,7 @@
 .history
 .svn/
 .env
-node_modules
+notes.txt
 
 migrate_working_dir/
 
