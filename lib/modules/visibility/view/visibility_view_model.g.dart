@@ -9,6 +9,22 @@ part of 'visibility_view_model.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$VisibilityViewModel on _VisibilityViewModel, Store {
+  late final _$historyAtom =
+      Atom(name: '_VisibilityViewModel.history', context: context);
+
+  @override
+  List<List<WeatherEntity>> get history {
+    _$historyAtom.reportRead();
+    return super.history;
+  }
+
+  @override
+  set history(List<List<WeatherEntity>> value) {
+    _$historyAtom.reportWrite(value, super.history, () {
+      super.history = value;
+    });
+  }
+
   late final _$currentIndexAtom =
       Atom(name: '_VisibilityViewModel.currentIndex', context: context);
 
@@ -22,6 +38,22 @@ mixin _$VisibilityViewModel on _VisibilityViewModel, Store {
   set currentIndex(int value) {
     _$currentIndexAtom.reportWrite(value, super.currentIndex, () {
       super.currentIndex = value;
+    });
+  }
+
+  late final _$dateAtom =
+      Atom(name: '_VisibilityViewModel.date', context: context);
+
+  @override
+  String get date {
+    _$dateAtom.reportRead();
+    return super.date;
+  }
+
+  @override
+  set date(String value) {
+    _$dateAtom.reportWrite(value, super.date, () {
+      super.date = value;
     });
   }
 
@@ -40,9 +72,22 @@ mixin _$VisibilityViewModel on _VisibilityViewModel, Store {
   }
 
   @override
+  void addItemHistory(WeatherEntity newItem, int index) {
+    final _$actionInfo = _$_VisibilityViewModelActionController.startAction(
+        name: '_VisibilityViewModel.addItemHistory');
+    try {
+      return super.addItemHistory(newItem, index);
+    } finally {
+      _$_VisibilityViewModelActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-currentIndex: ${currentIndex}
+history: ${history},
+currentIndex: ${currentIndex},
+date: ${date}
     ''';
   }
 }

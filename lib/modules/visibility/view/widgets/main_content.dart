@@ -5,21 +5,27 @@ import 'package:weather_android_app/modules/home/view/home_view.dart';
 import 'package:weather_android_app/modules/home/view/home_view_model.dart';
 import 'package:weather_android_app/modules/visibility/view/visibility_view_model.dart';
 import 'package:weather_android_app/modules/visibility/view/widgets/date_list.dart';
+import 'package:weather_android_app/modules/visibility/view/widgets/history_content.dart';
 import 'package:weather_android_app/modules/visibility/view/widgets/semi_circle_widget.dart';
 import 'package:weather_android_app/routes/app_routes.dart';
 import 'package:weather_android_app/utils/extensions/date_extensions.dart';
 import 'package:weather_android_app/utils/utility/text_utility.dart';
 
-class MainContent extends StatelessWidget {
-  MainContent({
+class MainContent extends StatefulWidget {
+  const MainContent({
     Key? key,
     required this.homeViewModel,
   }) : super(key: key);
 
   final HomeViewModel homeViewModel;
 
-  final VisibilityViewModel viewModel = VisibilityViewModel();
+  @override
+  State<MainContent> createState() => _MainContentState();
+}
 
+class _MainContentState extends State<MainContent> {
+  final VisibilityViewModel viewModel = VisibilityViewModel();
+  
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -48,13 +54,13 @@ class MainContent extends StatelessWidget {
             // ? Date Time now
             Observer(
               builder: (context) {
-                final dayMonth = homeViewModel.userLocation!.results!
+                final dayMonth = widget.homeViewModel.userLocation!.results!
                     .forecast![viewModel.currentIndex].date!;
-                final year =
-                    homeViewModel.userLocation!.results!.date!.substring(6, 10);
+                final year = widget.homeViewModel.userLocation!.results!.date!
+                    .substring(6, 10);
                 final dateTime = '$dayMonth/$year';
 
-                return homeViewModel.userLocation != null
+                return widget.homeViewModel.userLocation != null
                     ? Padding(
                         padding: const EdgeInsets.only(left: 16.0, top: 8),
                         child: AppText(
@@ -92,10 +98,10 @@ class MainContent extends StatelessWidget {
             ),
 
             // ? SemiCirle custom paint
-            SemiCircleWidget(homeViewModel, viewModel),
+            SemiCircleWidget(widget.homeViewModel, viewModel),
 
             const SizedBox(
-              height: 50,
+              height: 30,
             ),
 
             // ? Circle and date now
@@ -128,7 +134,8 @@ class MainContent extends StatelessWidget {
                     width: 12,
                   ),
                   Text(
-                    homeViewModel.userLocation!.results!.date!.monthFormat(),
+                    widget.homeViewModel.userLocation!.results!.date!
+                        .monthFormat(),
                     style: TextUtility.body1.copyWith(
                       color: Colors.black,
                       fontFamily: 'Nunito-Medium',
@@ -140,10 +147,10 @@ class MainContent extends StatelessWidget {
             const SizedBox(height: 16),
 
             // ? Date list
-            DateList(homeViewModel, viewModel),
+            DateList(widget.homeViewModel, viewModel),
 
             Padding(
-              padding: const EdgeInsets.only(left: 16.0),
+              padding: const EdgeInsets.only(left: 16.0, bottom: 6),
               child: AppText(
                 'Histórico',
                 style: TextUtility.body1.copyWith(
@@ -154,12 +161,7 @@ class MainContent extends StatelessWidget {
             ),
 
             // ? Historic
-            Expanded(
-              flex: 2,
-              child: Container(
-                color: Colors.yellow,
-              ),
-            )
+            HistoryContent(widget.homeViewModel, viewModel)
           ],
         ),
       ),
