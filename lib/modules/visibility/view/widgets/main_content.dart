@@ -25,7 +25,7 @@ class MainContent extends StatefulWidget {
 
 class _MainContentState extends State<MainContent> {
   final VisibilityViewModel viewModel = VisibilityViewModel();
-  
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -144,10 +144,12 @@ class _MainContentState extends State<MainContent> {
                 ],
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 8),
 
             // ? Date list
             DateList(widget.homeViewModel, viewModel),
+            
+            const SizedBox(height: 8),
 
             Padding(
               padding: const EdgeInsets.only(left: 16.0, bottom: 6),
@@ -159,6 +161,7 @@ class _MainContentState extends State<MainContent> {
                 ),
               ),
             ),
+            const SizedBox(height: 4),
 
             // ? Historic
             HistoryContent(widget.homeViewModel, viewModel)
