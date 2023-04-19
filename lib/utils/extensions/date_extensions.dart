@@ -5,7 +5,7 @@ extension DateExtension on String {
     final inputFormat = DateFormat("dd/MM/yyyy");
     final inputDate = inputFormat.parse(this);
     final outputFormat = DateFormat("E, dd 'de' MMMM", 'pt_BR');
-    
+
     return outputFormat.format(inputDate);
   }
 
@@ -18,11 +18,17 @@ extension DateExtension on String {
     return month[0].toUpperCase() + month.substring(1);
   }
 
-   String extractDayFromDateString() {
-    if(!this[0].contains('0')){
+  String extractDayFromDateString() {
+    if (!this[0].contains('0')) {
       return this[0] + this[1];
-    }else{
+    } else {
       return this[1];
     }
+  }
+
+  String extractDayAndMonth() {
+    List<String> parts = split('/');
+
+    return "${parts[0]}/${parts[1]}";
   }
 }
