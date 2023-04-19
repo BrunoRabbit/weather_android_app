@@ -92,7 +92,7 @@ class MainContent extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 16.0, bottom: 6),
               child: AppText(
-                'Histórico',
+                'Histórico de localização',
                 style: TextUtility.body1.copyWith(
                   color: Colors.black,
                   fontFamily: 'Nunito-Medium',
