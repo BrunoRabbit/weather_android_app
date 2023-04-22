@@ -199,7 +199,7 @@ class Forecast {
       cloudiness: map.verifyNull<double>('cloudiness'),
       rain: map.verifyNull<double>('rain'),
       rainProbability: map.verifyNull<int>('rain_probability'),
-      windSpeedy: map.verifyNull<String>('windSpeedy'),
+      windSpeedy: map.verifyNull<String>('wind_speedy'),
       description: map.verifyNull<String>('description'),
       condition: map.verifyNull<String>('condition'),
     );
