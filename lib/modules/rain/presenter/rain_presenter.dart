@@ -17,6 +17,7 @@ class RainPresenter {
   VisibilityViewModel viewModel;
   RainViewModel rainViewModel;
 
+  // ? Verify if the DateTime is [nonWorkingDays] and add the correct day gender
   String verifyDateTime(Results user) {
     final weekday = user.forecast![viewModel.currentIndex].weekday!;
     final nonWorkingDays = ['Sáb', 'Dom'];
@@ -32,6 +33,7 @@ class RainPresenter {
     }
   }
 
+  // ? Using SharedPrefs to Set and Get HumidityList
   Future<List<int>> accessHumidity(
     int humidity,
     SharedPreferences prefs,
