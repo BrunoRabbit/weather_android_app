@@ -5,6 +5,7 @@ import 'package:weather_android_app/components/app_text.dart';
 import 'package:weather_android_app/modules/home/view/home_view_model.dart';
 import 'package:weather_android_app/modules/rain/view/rain_view.dart';
 import 'package:weather_android_app/modules/visibility/view/visibility_view.dart';
+import 'package:weather_android_app/modules/visibility/view/visibility_view_model.dart';
 import 'package:weather_android_app/routes/app_routes.dart';
 import 'package:weather_android_app/utils/utility/app_utility.dart';
 import 'package:weather_android_app/utils/utility/text_utility.dart';
@@ -13,9 +14,11 @@ class MainDrawer extends StatelessWidget {
   const MainDrawer({
     Key? key,
     required this.homeViewModel,
+    required this.viewModel,
   }) : super(key: key);
 
   final HomeViewModel homeViewModel;
+  final VisibilityViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +29,7 @@ class MainDrawer extends StatelessWidget {
         onPress: () {
           Navigator.of(context).push(
             AppRouter.createRoute(
-              VisibilityView(homeViewModel),
+              VisibilityView(homeViewModel, viewModel),
             ),
           );
         },
@@ -37,7 +40,7 @@ class MainDrawer extends StatelessWidget {
         onPress: () {
           Navigator.of(context).push(
             AppRouter.createRoute(
-              RainView(homeViewModel),
+              RainView(homeViewModel, viewModel),
             ),
           );
         },

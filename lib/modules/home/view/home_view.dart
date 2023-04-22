@@ -7,6 +7,7 @@ import 'package:weather_android_app/modules/home/view/widgets/main_drawer.dart';
 import 'package:weather_android_app/modules/home/view/widgets/weather_main_content.dart';
 import 'package:weather_android_app/modules/home/view/widgets/weather_week.dart';
 import 'package:weather_android_app/modules/splash/view/splash_view.dart';
+import 'package:weather_android_app/modules/visibility/view/visibility_view_model.dart';
 import 'package:weather_android_app/routes/app_routes.dart';
 
 class HomeView extends StatefulWidget {
@@ -19,6 +20,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView>
     with SingleTickerProviderStateMixin {
   final HomeViewModel _homeViewModel = HomeViewModel();
+  final VisibilityViewModel _viewModel = VisibilityViewModel();
 
   late AnimationController _controller;
   late Size size;
@@ -86,7 +88,10 @@ class _HomeViewState extends State<HomeView>
           ),
         ],
       ),
-      drawer: MainDrawer(homeViewModel: _homeViewModel),
+      drawer: MainDrawer(
+        homeViewModel: _homeViewModel,
+        viewModel: _viewModel,
+      ),
       body: Observer(builder: (context) {
         if (_homeViewModel.isDisplayedDialog) {
           WidgetsBinding.instance.addPostFrameCallback(
