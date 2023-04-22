@@ -10,14 +10,14 @@ import 'package:weather_android_app/utils/extensions/date_extensions.dart';
 import 'package:weather_android_app/utils/utility/text_utility.dart';
 
 class MainContent extends StatelessWidget {
-  MainContent({
+  const MainContent({
     Key? key,
     required this.homeViewModel,
+    required this.viewModel,
   }) : super(key: key);
 
   final HomeViewModel homeViewModel;
-
-  final VisibilityViewModel viewModel = VisibilityViewModel();
+  final VisibilityViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {

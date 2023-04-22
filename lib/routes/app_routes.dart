@@ -28,10 +28,10 @@ class AppRouter {
         return createRoute(const RegisterView());
 
       case AppRoutes.kVisibility:
-        return createRoute(VisibilityView(arguments));
+        return createRoute(VisibilityView(arguments, arguments));
 
       case AppRoutes.kHumidity:
-        return createRoute(RainView(arguments));
+        return createRoute(RainView(arguments, arguments));
 
       default:
         return createRoute(const SplashView());
