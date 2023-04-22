@@ -86,6 +86,7 @@ class _RainViewState extends State<RainView> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // ? Title
                         AppText(
                           'Umidade ${rainPresenter.verifyDateTime(user)}: ($date)',
                           style: TextUtility.headline3.medium.copyWith(
@@ -93,6 +94,8 @@ class _RainViewState extends State<RainView> {
                             fontFamily: 'Nunito-Medium',
                           ),
                         ),
+                        
+                        // ? Humidity
                         Row(
                           children: [
                             SvgPicture.asset(
@@ -124,6 +127,7 @@ class _RainViewState extends State<RainView> {
                       ],
                     ),
                     const Spacer(flex: 5),
+                    // ? Icon
                     Icon(
                       WeekDayUtility.getIconData(user.description!),
                       size: 40,
@@ -166,6 +170,7 @@ class _RainViewState extends State<RainView> {
     );
   }
 
+  // ? call access humidity to get humidityList
   Future<List<int>> initHumidityList() async {
     SharedPreferences sharedPrefs = await _prefs;
 
