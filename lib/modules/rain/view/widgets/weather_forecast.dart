@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:weather_android_app/components/app_text.dart';
+import 'package:weather_android_app/modules/home/entity/user_location.dart';
+import 'package:weather_android_app/modules/visibility/view/visibility_view_model.dart';
 import 'package:weather_android_app/utils/utility/text_utility.dart';
 
 class WeatherForecast extends StatelessWidget {
-  const WeatherForecast({Key? key}) : super(key: key);
+  const WeatherForecast({
+    Key? key,
+    required this.item,
+    required this.viewModel,
+  }) : super(key: key);
+
+  final Results item;
+  final VisibilityViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +47,7 @@ class WeatherForecast extends StatelessWidget {
                     style: styleTextTitle,
                   ),
                   AppText(
-                    '12.02 km/h',
+                    item.forecast![viewModel.currentIndex].windSpeedy!,
                     style: styleTextInformation,
                   ),
                 ],
@@ -61,7 +70,7 @@ class WeatherForecast extends StatelessWidget {
                     style: styleTextTitle,
                   ),
                   AppText(
-                    'Tempo Limpo',
+                    item.forecast![viewModel.currentIndex].description!,
                     style: styleTextInformation,
                   ),
                   const SizedBox(height: 10),
@@ -70,7 +79,7 @@ class WeatherForecast extends StatelessWidget {
                     style: styleTextTitle,
                   ),
                   AppText(
-                    '19:55',
+                    item.time!,
                     style: styleTextInformation,
                   ),
                 ],

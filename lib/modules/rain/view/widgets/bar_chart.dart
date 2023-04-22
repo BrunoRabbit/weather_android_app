@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:weather_android_app/components/app_text.dart';
 import 'package:weather_android_app/modules/home/entity/user_location.dart';
+import 'package:weather_android_app/modules/visibility/view/visibility_view_model.dart';
 import 'package:weather_android_app/utils/utility/text_utility.dart';
 
 class BarChart extends StatelessWidget {
   const BarChart({
     super.key,
     required this.item,
-    required this.todayIndex,
+    required this.viewModel,
   });
 
   final List<Forecast> item;
-  final int todayIndex;
+  final VisibilityViewModel viewModel;
 
   @override
   Widget build(BuildContext context) {
@@ -50,64 +52,71 @@ class BarChart extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       for (int i = 0; i < 7; i++)
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            // ? Rain probability
-                            AppText(
-                              '${((item[i].rainProbability!)).toStringAsFixed(1)}%',
-                              family: 'SemiBold',
-                              color: i == todayIndex
-                                  ? Colors.black
-                                  : Colors.grey[700],
-                            ),
-
-                            // ? Bar Chart
-                            Container(
-                              width: 30,
-                              height: item[i].rainProbability! * 12.0,
-                              decoration: BoxDecoration(
-                                color: i == todayIndex
-                                    ? Colors.purple
-                                    : const Color(0xffB38AFF),
-                                borderRadius: BorderRadius.circular(8),
-                                boxShadow: [
-                                  BoxShadow(
-                                    offset: const Offset(2, 0),
-                                    blurRadius: 2,
-                                    color: Colors.black.withOpacity(0.2),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(height: 5),
-
-                            Column(
+                        Observer(builder: (context) {
+                          return GestureDetector(
+                            onTap: () {
+                              viewModel.changeIndex(i);
+                            },
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                // ? Week day
+                                // ? Rain probability
                                 AppText(
-                                  item[i].weekday!,
-                                  style: TextUtility.body1.bold.copyWith(
-                                    color: i == todayIndex
-                                        ? Colors.black
-                                        : Colors.grey[700],
-                                  ),
+                                  '${((item[i].rainProbability!)).toStringAsFixed(1)}%',
+                                  family: 'SemiBold',
+                                  color: i == viewModel.currentIndex
+                                      ? Colors.black
+                                      : Colors.grey[700],
                                 ),
 
-                                // ?
-                                AppText(
-                                  item[i].date!,
-                                  style: TextUtility.body2.bold.copyWith(
-                                    color: i == todayIndex
-                                        ? Colors.black
-                                        : Colors.grey[700],
+                                // ? Bar Chart
+                                Container(
+                                  width: 30,
+                                  height: item[i].rainProbability! * 12 / 10,
+                                  decoration: BoxDecoration(
+                                    color: i == viewModel.currentIndex
+                                        ? Colors.purple
+                                        : const Color(0xffB38AFF),
+                                    borderRadius: BorderRadius.circular(8),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        offset: const Offset(2, 0),
+                                        blurRadius: 2,
+                                        color: Colors.black.withOpacity(0.2),
+                                      ),
+                                    ],
                                   ),
                                 ),
+                                const SizedBox(height: 5),
+
+                                Column(
+                                  children: [
+                                    // ? Week day
+                                    AppText(
+                                      item[i].weekday!,
+                                      style: TextUtility.body1.bold.copyWith(
+                                        color: i == viewModel.currentIndex
+                                            ? Colors.black
+                                            : Colors.grey[700],
+                                      ),
+                                    ),
+
+                                    // ? Date
+                                    AppText(
+                                      item[i].date!,
+                                      style: TextUtility.body2.bold.copyWith(
+                                        color: i == viewModel.currentIndex
+                                            ? Colors.black
+                                            : Colors.grey[700],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(height: 8),
                               ],
                             ),
-                            const SizedBox(height: 8),
-                          ],
-                        ),
+                          );
+                        }),
                     ],
                   ),
                 ),
