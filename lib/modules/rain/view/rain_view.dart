@@ -1,29 +1,50 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:weather_android_app/components/app_text.dart';
 import 'package:weather_android_app/modules/home/view/home_view.dart';
 import 'package:weather_android_app/modules/home/view/home_view_model.dart';
+import 'package:weather_android_app/modules/rain/presenter/rain_presenter.dart';
+import 'package:weather_android_app/modules/rain/view/rain_view_model.dart';
 import 'package:weather_android_app/modules/rain/view/widgets/bar_chart.dart';
 import 'package:weather_android_app/modules/rain/view/widgets/weather_forecast.dart';
+import 'package:weather_android_app/modules/visibility/view/visibility_view_model.dart';
 import 'package:weather_android_app/routes/app_routes.dart';
-import 'package:weather_android_app/utils/extensions/date_extensions.dart';
 import 'package:weather_android_app/utils/utility/text_utility.dart';
 import 'package:weather_android_app/utils/utility/weekday_utility.dart';
 
-class RainView extends StatelessWidget {
+class RainView extends StatefulWidget {
   const RainView(
-    this.homeViewModel, {
+    this.homeViewModel,
+    this.viewModel, {
     Key? key,
   }) : super(key: key);
 
   final HomeViewModel homeViewModel;
+  final VisibilityViewModel viewModel;
+
+  @override
+  State<RainView> createState() => _RainViewState();
+}
+
+class _RainViewState extends State<RainView> {
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  late final RainPresenter rainPresenter;
+  final RainViewModel rainViewModel = RainViewModel();
+
+  @override
+  void initState() {
+    super.initState();
+    rainPresenter = RainPresenter(
+      homeViewModel: widget.homeViewModel,
+      viewModel: widget.viewModel,
+      rainViewModel: rainViewModel,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    final DateTime today = DateTime.now();
-    final int todayIndex = today.weekday - 3;
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -52,7 +73,8 @@ class RainView extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Observer(
           builder: (context) {
-            final user = homeViewModel.userLocation!.results!;
+            final user = widget.homeViewModel.userLocation!.results!;
+            final date = user.forecast![widget.viewModel.currentIndex].date;
 
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,7 +87,7 @@ class RainView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         AppText(
-                          'Umidade hoje: (${user.date!.extractDayAndMonth()})',
+                          'Umidade ${rainPresenter.verifyDateTime(user)}: ($date)',
                           style: TextUtility.headline3.medium.copyWith(
                             color: Colors.grey[700],
                             fontFamily: 'Nunito-Medium',
@@ -78,12 +100,24 @@ class RainView extends StatelessWidget {
                               height: 30,
                             ),
                             const SizedBox(width: 10),
-                            AppText(
-                              user.humidity!.toStringAsFixed(2),
-                              style: TextUtility.title.medium.copyWith(
-                                color: Colors.black87,
-                                fontFamily: 'Nunito-SemiBold',
-                              ),
+                            FutureBuilder<List<int>>(
+                              future: initHumidityList(),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  final int humidityList =
+                                      rainViewModel.humidityList?[
+                                              widget.viewModel.currentIndex] ??
+                                          0;
+                                  return AppText(
+                                    humidityList.toStringAsFixed(2),
+                                    style: TextUtility.title.medium.copyWith(
+                                      color: Colors.black87,
+                                      fontFamily: 'Nunito-SemiBold',
+                                    ),
+                                  );
+                                }
+                                return Container();
+                              },
                             ),
                           ],
                         ),
@@ -103,7 +137,7 @@ class RainView extends StatelessWidget {
                 Center(
                   child: BarChart(
                     item: user.forecast!,
-                    todayIndex: todayIndex,
+                    viewModel: widget.viewModel,
                   ),
                 ),
 
@@ -113,17 +147,33 @@ class RainView extends StatelessWidget {
                   child: Text(
                     'Estimativa de clima',
                     style: TextUtility.subtitle1.copyWith(
-                        color: Colors.black87, fontFamily: 'Nunito-SemiBold'),
+                      color: Colors.black87,
+                      fontFamily: 'Nunito-SemiBold',
+                    ),
                   ),
                 ),
 
                 // ? Weather Forecast
-                const WeatherForecast(),
+                WeatherForecast(
+                  item: user,
+                  viewModel: widget.viewModel,
+                ),
               ],
             );
           },
         ),
       ),
     );
+  }
+
+  Future<List<int>> initHumidityList() async {
+    SharedPreferences sharedPrefs = await _prefs;
+
+    rainViewModel.humidityList = await rainPresenter.accessHumidity(
+      widget.homeViewModel.userLocation!.results!.humidity!,
+      sharedPrefs,
+    );
+
+    return rainViewModel.humidityList!;
   }
 }
