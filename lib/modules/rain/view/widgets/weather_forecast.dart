@@ -61,28 +61,31 @@ class WeatherForecast extends StatelessWidget {
               endIndent: 40,
             ),
             Flexible(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  AppText(
-                    'Condição atual:',
-                    style: styleTextTitle,
-                  ),
-                  AppText(
-                    item.forecast![viewModel.currentIndex].description!,
-                    style: styleTextInformation,
-                  ),
-                  const SizedBox(height: 10),
-                  AppText(
-                    'Ultima atualização:',
-                    style: styleTextTitle,
-                  ),
-                  AppText(
-                    item.time!,
-                    style: styleTextInformation,
-                  ),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.only(left: 12.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AppText(
+                      'Condição atual:',
+                      style: styleTextTitle,
+                    ),
+                    AppText(
+                      item.forecast![viewModel.currentIndex].description!,
+                      style: styleTextInformation,
+                    ),
+                    const SizedBox(height: 10),
+                    AppText(
+                      'Ultima atualização:',
+                      style: styleTextTitle,
+                    ),
+                    AppText(
+                      item.time!,
+                      style: styleTextInformation,
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
