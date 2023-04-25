@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:weather_android_app/utils/utility/app_utility.dart';
 
 class AnimatedWave extends StatelessWidget {
   const AnimatedWave({
@@ -30,7 +31,10 @@ class AnimatedWave extends StatelessWidget {
                   gradient: LinearGradient(
                     begin: Alignment.bottomLeft,
                     end: Alignment.topRight,
-                    colors: [Color(0xFF1157BC), Color(0xFF2E9DE2)],
+                    colors: [
+                      AppUtility.kPrimaryColor,
+                      AppUtility.kSecondaryColor,
+                    ],
                   ),
                 ),
               ),

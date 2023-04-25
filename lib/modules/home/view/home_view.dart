@@ -105,12 +105,13 @@ class _HomeViewState extends State<HomeView>
                   WeatherMainContent(
                     size: size,
                     controller: _controller,
-                    userLocation: _homeViewModel.userLocation,
+                    homeViewModel: _homeViewModel,
                   ),
 
                   // ? week weather info
                   WeatherWeek(
                     userLocation: _homeViewModel.userLocation,
+                    viewModel: _viewModel,
                   ),
                 ],
               )
