@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_android_app/modules/home/view/home_view.dart';
+import 'package:weather_android_app/modules/home/view/widgets/search_widget.dart';
 import 'package:weather_android_app/modules/rain/view/rain_view.dart';
 import 'package:weather_android_app/modules/register/view/register_view.dart';
 import 'package:weather_android_app/modules/splash/view/splash_view.dart';
@@ -11,6 +12,7 @@ class AppRoutes {
   static const String kRegister = '/register';
   static const String kVisibility = '/visibility';
   static const String kHumidity = '/humidity';
+  static const String kSearch = '/search';
 }
 
 class AppRouter {
@@ -32,6 +34,10 @@ class AppRouter {
 
       case AppRoutes.kHumidity:
         return createRoute(RainView(arguments, arguments));
+
+        case AppRoutes.kSearch:
+        return createRoute(const SearchWidget());
+
 
       default:
         return createRoute(const SplashView());

@@ -25,6 +25,22 @@ mixin _$HomeViewModel on _HomeViewModel, Store {
     });
   }
 
+  late final _$isButtonPressedAtom =
+      Atom(name: '_HomeViewModel.isButtonPressed', context: context);
+
+  @override
+  bool get isButtonPressed {
+    _$isButtonPressedAtom.reportRead();
+    return super.isButtonPressed;
+  }
+
+  @override
+  set isButtonPressed(bool value) {
+    _$isButtonPressedAtom.reportWrite(value, super.isButtonPressed, () {
+      super.isButtonPressed = value;
+    });
+  }
+
   late final _$userLocationAtom =
       Atom(name: '_HomeViewModel.userLocation', context: context);
 
@@ -53,6 +69,7 @@ mixin _$HomeViewModel on _HomeViewModel, Store {
   String toString() {
     return '''
 isDisplayedDialog: ${isDisplayedDialog},
+isButtonPressed: ${isButtonPressed},
 userLocation: ${userLocation}
     ''';
   }

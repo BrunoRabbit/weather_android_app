@@ -10,10 +10,13 @@ class HomeViewModel = _HomeViewModel with _$HomeViewModel;
 
 abstract class _HomeViewModel with Store {
   HomeInteractor interactor = HomeInteractor();
-  
+
   @observable
   bool isDisplayedDialog = false;
-  
+
+  @observable
+  bool isButtonPressed = false;
+
   @observable
   UserLocation? userLocation;
 
@@ -22,7 +25,3 @@ abstract class _HomeViewModel with Store {
     return userLocation = await interactor.fetchData(entity);
   }
 }
-
-
-
-
