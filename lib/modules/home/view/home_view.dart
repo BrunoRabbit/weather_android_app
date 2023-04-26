@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:weather_android_app/components/app_text.dart';
+import 'package:weather_android_app/components/transparent_app_bar.dart';
 import 'package:weather_android_app/modules/home/presenter/home_presenter.dart';
 import 'package:weather_android_app/modules/home/view/home_view_model.dart';
 import 'package:weather_android_app/modules/home/view/widgets/main_drawer.dart';
@@ -57,36 +58,24 @@ class _HomeViewState extends State<HomeView>
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        centerTitle: true,
-        title: Observer(
-          builder: (context) => _homeViewModel.userLocation != null
+      appBar: TransparentAppBar.withTitleObserver(
+        isActionEnabled: true,
+        titleBuilder: (context) {
+          return _homeViewModel.userLocation != null
               ? AppText(
                   _homeViewModel.userLocation!.results!.city!,
                   size: 20,
                 )
-              : Container(),
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: IconButton(
-              icon: const Icon(
-                Icons.logout_rounded,
-              ),
-              onPressed: () {
-                // TODO - LOGOUT
-                Navigator.of(context).pushReplacement(
-                  AppRouter.createRoute(
-                    const SplashView(),
-                  ),
-                );
-              },
+              : Container();
+        },
+        onPressed: () {
+          // TODO - LOGOUT
+          Navigator.of(context).pushReplacement(
+            AppRouter.createRoute(
+              const SplashView(),
             ),
-          ),
-        ],
+          );
+        },
       ),
       drawer: MainDrawer(
         homeViewModel: _homeViewModel,
