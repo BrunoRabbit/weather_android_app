@@ -7,14 +7,6 @@ import 'package:weather_android_app/utils/utility/app_utility.dart';
 import 'package:weather_android_app/utils/utility/text_utility.dart';
 import 'package:weather_android_app/utils/utility/weekday_utility.dart';
 
-enum WeatherDescription {
-  parcialmenteNublado,
-  chuva,
-  chuvasEsparsas,
-  tempoNublado,
-  tempoLimpo,
-}
-
 class WeatherWeek extends StatelessWidget {
   const WeatherWeek({
     Key? key,

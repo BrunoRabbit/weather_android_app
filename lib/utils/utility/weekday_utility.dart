@@ -2,6 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:weather_android_app/modules/home/view/widgets/weather_week.dart';
 
+enum WeatherDescription {
+  parcialmenteNublado,
+  chuva,
+  chuvasEsparsas,
+  tempoNublado,
+  tempoLimpo,
+  neblina,
+}
+
 class WeekDayUtility {
   // * transform letter to title format: example, somethingTodo => Something todo
   static String titleFormat(String description) {
@@ -46,6 +55,10 @@ class WeekDayUtility {
     if (txt.contains(titleFormat(WeatherDescription.tempoNublado.name))) {
       return FontAwesomeIcons.cloud;
     }
+    if (txt.contains(titleFormat(WeatherDescription.neblina.name))) {
+      return Icons.foggy;
+    }
+    
     return Icons.image_not_supported_outlined;
   }
 
