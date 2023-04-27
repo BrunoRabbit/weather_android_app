@@ -15,7 +15,7 @@ abstract class _HomeViewModel with Store {
   bool isDisplayedDialog = false;
 
   @observable
-  bool isButtonPressed = false;
+  bool isFocused = false;
 
   @observable
   UserLocation? userLocation;
@@ -23,5 +23,10 @@ abstract class _HomeViewModel with Store {
   @action
   Future<UserLocation> setupPresenter(UserLatLong entity) async {
     return userLocation = await interactor.fetchData(entity);
+  }
+
+  @action
+  buttonPressed() async {
+    isFocused = !isFocused;
   }
 }

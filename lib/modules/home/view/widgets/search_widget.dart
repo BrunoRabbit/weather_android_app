@@ -1,39 +1,35 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+
 import 'package:weather_android_app/components/app_text.dart';
 import 'package:weather_android_app/components/transparent_app_bar.dart';
+import 'package:weather_android_app/modules/home/view/home_view_model.dart';
 
 class SearchWidget extends StatefulWidget {
-  const SearchWidget({Key? key}) : super(key: key);
+  const SearchWidget(
+    this.homeViewModel, {
+    Key? key,
+  }) : super(key: key);
+
+  final HomeViewModel homeViewModel;
 
   @override
   State<SearchWidget> createState() => _SearchWidgetState();
 }
 
-class _SearchWidgetState extends State<SearchWidget>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _opacityAnimation;
+class _SearchWidgetState extends State<SearchWidget> {
+  final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: 1000),
-      vsync: this,
-    );
-
-    _opacityAnimation = Tween<double>(
-      begin: 0,
-      end: 1,
-    ).animate(_controller);
-
-    _controller.forward();
+    widget.homeViewModel.isFocused = false;
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -62,28 +58,77 @@ class _SearchWidgetState extends State<SearchWidget>
       ),
       body: Column(
         children: [
-          AnimatedBuilder(
-            animation: _controller,
-            builder: (BuildContext context, Widget? child) {
-              return Row(
-                children: [
-                  Flexible(
-                    child: Opacity(
-                      opacity: _opacityAnimation.value,
-                      child: TextFormField(),
+          Observer(
+            builder: (context) {
+              return Padding(
+                padding: const EdgeInsets.all(20),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(80),
+                    border: Border.all(
+                      color: widget.homeViewModel.isFocused
+                          ? Colors.purple
+                          : Colors.grey,
+                      width: 1.2,
                     ),
                   ),
-                  const SizedBox(height: 16),
-                  FloatingActionButton(
-                    heroTag: 'btn1',
-                    backgroundColor: Colors.white,
-                    child: const Icon(
-                      Icons.search,
-                      color: Colors.black87,
-                    ),
-                    onPressed: () {},
+                  child: Row(
+                    children: [
+                      Flexible(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 20),
+                          child: TextFormField(
+                            focusNode: _focusNode,
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                            ),
+                            onTap: () {
+                              if(!widget.homeViewModel.isFocused){
+                                widget.homeViewModel.buttonPressed();
+                              }
+                            },
+                            onTapOutside: (event) {
+                              if (widget.homeViewModel.isFocused = true) {
+                                widget.homeViewModel.buttonPressed();
+                                if (_focusNode.hasFocus) {
+                                  _focusNode.unfocus();
+                                }
+                              }
+                            },
+                          ),
+                        ),
+                      ),
+                      Hero(
+                        tag: 'btn1',
+                        child: Material(
+                          shape: const CircleBorder(),
+                          child: InkWell(
+                            onTap: () {
+                              print('DO');
+                            },
+                            customBorder: const CircleBorder(),
+                            child: Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: widget.homeViewModel.isFocused
+                                    ? Colors.purple
+                                    : Colors.grey,
+                              ),
+                              child: Icon(
+                                Icons.search,
+                                color: widget.homeViewModel.isFocused
+                                    ? Colors.white
+                                    : Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               );
             },
           ),

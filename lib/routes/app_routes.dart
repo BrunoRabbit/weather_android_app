@@ -35,9 +35,8 @@ class AppRouter {
       case AppRoutes.kHumidity:
         return createRoute(RainView(arguments, arguments));
 
-        case AppRoutes.kSearch:
-        return createRoute(const SearchWidget());
-
+      case AppRoutes.kSearch:
+        return createRoute(SearchWidget(arguments));
 
       default:
         return createRoute(const SplashView());
