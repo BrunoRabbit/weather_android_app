@@ -42,7 +42,11 @@ class HomePresenter {
         longitude: locationData.longitude,
       );
 
-      homeViewModel.userLocation = await interactor.fetchData(userLatLong);
+      homeViewModel.userLocation = await interactor.fetchUserData(userLatLong);
     }
+  }
+
+  Future<void> getCityData(String name) async {
+    homeViewModel.userLocation = await interactor.fetchCityData(name);
   }
 }

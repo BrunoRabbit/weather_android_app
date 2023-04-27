@@ -36,7 +36,7 @@ class AppRouter {
         return createRoute(RainView(arguments, arguments));
 
       case AppRoutes.kSearch:
-        return createRoute(SearchWidget(arguments));
+        return createRoute(SearchWidget(arguments, arguments));
 
       default:
         return createRoute(const SplashView());

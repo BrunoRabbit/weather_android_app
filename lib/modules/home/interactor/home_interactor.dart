@@ -6,7 +6,11 @@ import 'package:weather_android_app/modules/home/entity/user_location.dart';
 class HomeInteractor {
   final HomeData _homeData = HomeData();
 
-  Future<UserLocation> fetchData(UserLatLong entity) async {
+  Future<UserLocation> fetchUserData(UserLatLong entity) async {
     return await _homeData.getLocation(entity);
+  }
+
+  Future<UserLocation> fetchCityData(String name) async {
+    return await _homeData.searchLocation(name);
   }
 }
