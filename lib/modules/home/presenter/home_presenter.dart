@@ -45,8 +45,4 @@ class HomePresenter {
       homeViewModel.userLocation = await interactor.fetchUserData(userLatLong);
     }
   }
-
-  Future<void> getCityData(String name) async {
-    homeViewModel.userLocation = await interactor.fetchCityData(name);
-  }
 }

@@ -25,22 +25,6 @@ mixin _$HomeViewModel on _HomeViewModel, Store {
     });
   }
 
-  late final _$isFocusedAtom =
-      Atom(name: '_HomeViewModel.isFocused', context: context);
-
-  @override
-  bool get isFocused {
-    _$isFocusedAtom.reportRead();
-    return super.isFocused;
-  }
-
-  @override
-  set isFocused(bool value) {
-    _$isFocusedAtom.reportWrite(value, super.isFocused, () {
-      super.isFocused = value;
-    });
-  }
-
   late final _$userLocationAtom =
       Atom(name: '_HomeViewModel.userLocation', context: context);
 
@@ -57,27 +41,10 @@ mixin _$HomeViewModel on _HomeViewModel, Store {
     });
   }
 
-  late final _$setupPresenterAsyncAction =
-      AsyncAction('_HomeViewModel.setupPresenter', context: context);
-
-  @override
-  Future<UserLocation> setupPresenter(UserLatLong entity) {
-    return _$setupPresenterAsyncAction.run(() => super.setupPresenter(entity));
-  }
-
-  late final _$buttonPressedAsyncAction =
-      AsyncAction('_HomeViewModel.buttonPressed', context: context);
-
-  @override
-  Future buttonPressed() {
-    return _$buttonPressedAsyncAction.run(() => super.buttonPressed());
-  }
-
   @override
   String toString() {
     return '''
 isDisplayedDialog: ${isDisplayedDialog},
-isFocused: ${isFocused},
 userLocation: ${userLocation}
     ''';
   }
