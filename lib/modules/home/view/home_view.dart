@@ -7,6 +7,8 @@ import 'package:weather_android_app/modules/home/view/home_view_model.dart';
 import 'package:weather_android_app/modules/home/view/widgets/main_drawer.dart';
 import 'package:weather_android_app/modules/home/view/widgets/weather_main_content.dart';
 import 'package:weather_android_app/modules/home/view/widgets/weather_week.dart';
+import 'package:weather_android_app/modules/search/presenter/search_presenter.dart';
+import 'package:weather_android_app/modules/search/view/search_view_model.dart';
 import 'package:weather_android_app/modules/splash/view/splash_view.dart';
 import 'package:weather_android_app/modules/visibility/view/visibility_view_model.dart';
 import 'package:weather_android_app/routes/app_routes.dart';
@@ -21,11 +23,13 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView>
     with SingleTickerProviderStateMixin {
   final HomeViewModel _homeViewModel = HomeViewModel();
+  final SearchViewModel _searchViewModel = SearchViewModel();
   final VisibilityViewModel _viewModel = VisibilityViewModel();
 
   late AnimationController _controller;
   late Size size;
   late HomePresenter presenter;
+  late SearchPresenter searchPresenter;
 
   @override
   void initState() {
@@ -40,6 +44,11 @@ class _HomeViewState extends State<HomeView>
 
     presenter = HomePresenter(_homeViewModel);
     presenter.checkServiceLocation();
+
+    searchPresenter = SearchPresenter(
+      _searchViewModel,
+      _homeViewModel,
+    );
   }
 
   @override
@@ -81,33 +90,37 @@ class _HomeViewState extends State<HomeView>
         homeViewModel: _homeViewModel,
         viewModel: _viewModel,
       ),
-      body: Observer(builder: (context) {
-        if (_homeViewModel.isDisplayedDialog) {
-          WidgetsBinding.instance.addPostFrameCallback(
-            (_) => displayDialog(context),
-          );
-        }
-        return _homeViewModel.userLocation != null
-            ? Column(
-                children: [
-                  // ? animated container & today weather info
-                  WeatherMainContent(
-                    size: size,
-                    controller: _controller,
-                    homeViewModel: _homeViewModel,
-                  ),
+      body: Observer(
+        builder: (context) {
+          if (_homeViewModel.isDisplayedDialog) {
+            WidgetsBinding.instance.addPostFrameCallback(
+              (_) => displayDialog(context),
+            );
+          }
+          return _homeViewModel.userLocation != null
+              ? Column(
+                  children: [
+                    // ? animated container & today weather info
+                    WeatherMainContent(
+                      size: size,
+                      controller: _controller,
+                      homeViewModel: _homeViewModel,
+                      presenter: searchPresenter,
+                      searchViewModel: _searchViewModel,
+                    ),
 
-                  // ? week weather info
-                  WeatherWeek(
-                    userLocation: _homeViewModel.userLocation,
-                    viewModel: _viewModel,
-                  ),
-                ],
-              )
-            : const Center(
-                child: CircularProgressIndicator(),
-              );
-      }),
+                    // ? week weather info
+                    WeatherWeek(
+                      userLocation: _homeViewModel.userLocation,
+                      viewModel: _viewModel,
+                    ),
+                  ],
+                )
+              : const Center(
+                  child: CircularProgressIndicator(),
+                );
+        },
+      ),
     );
   }
 }
