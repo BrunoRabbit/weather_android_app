@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:weather_android_app/modules/home/view/home_view.dart';
-import 'package:weather_android_app/modules/home/view/widgets/search_widget.dart';
 import 'package:weather_android_app/modules/rain/view/rain_view.dart';
 import 'package:weather_android_app/modules/register/view/register_view.dart';
+import 'package:weather_android_app/modules/search/view/search_view.dart';
 import 'package:weather_android_app/modules/splash/view/splash_view.dart';
 import 'package:weather_android_app/modules/visibility/view/visibility_view.dart';
 
@@ -36,7 +36,7 @@ class AppRouter {
         return createRoute(RainView(arguments, arguments));
 
       case AppRoutes.kSearch:
-        return createRoute(SearchWidget(arguments, arguments));
+        return createRoute(SearchView(arguments, arguments));
 
       default:
         return createRoute(const SplashView());
