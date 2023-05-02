@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:weather_android_app/components/app_text.dart';
 import 'package:weather_android_app/components/app_text_field.dart';
+import 'package:weather_android_app/modules/home/view/home_view.dart';
 import 'package:weather_android_app/modules/register/entity/user_hive.dart';
 import 'package:weather_android_app/modules/register/presenter/register_presenter.dart';
 import 'package:weather_android_app/modules/register/view/register_view_model.dart';
+import 'package:weather_android_app/routes/app_routes.dart';
 import 'package:weather_android_app/utils/extensions/form_extensions.dart';
 import 'package:weather_android_app/utils/utility/app_utility.dart';
 import 'package:weather_android_app/utils/utility/text_utility.dart';
@@ -60,7 +62,7 @@ class _FormWidgetState extends State<FormWidget> {
                         labelText: "Email",
                         controller: widget.emailController,
                         validator: (text) {
-                          if (!text.isValidEmail && text!.isEmpty) {
+                          if (text!.isEmpty || text.isValidEmail) {
                             return 'Utilize um email válido';
                           }
                           return null;
@@ -170,9 +172,24 @@ class _FormWidgetState extends State<FormWidget> {
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(widget.viewModel.errorText),
+          content: AppText(
+            widget.viewModel.errorText,
+            family: 'Medium',
+          ),
+          backgroundColor: widget.presenter.isRegister
+              ? AppUtility.kSecondaryColor
+              : AppUtility.kErrorColor,
         ),
       );
+      if (widget.presenter.isRegister) {
+        Future.delayed(const Duration(seconds: 1), () {
+          Navigator.of(context).push(
+            AppRouter.createRoute(
+              const HomeView(),
+            ),
+          );
+        });
+      }
     });
   }
 }
