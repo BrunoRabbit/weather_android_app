@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weather_android_app/components/app_text.dart';
 import 'package:weather_android_app/modules/register/presenter/register_presenter.dart';
 import 'package:weather_android_app/modules/register/view/register_view_model.dart';
-import 'package:weather_android_app/modules/register/view/widgets/form_component.dart';
+import 'package:weather_android_app/modules/register/view/widgets/form_widget.dart';
 import 'package:weather_android_app/utils/utility/app_utility.dart';
 import 'package:weather_android_app/utils/utility/text_utility.dart';
 
@@ -102,7 +102,7 @@ class _RegisterViewState extends State<RegisterView> {
           ),
 
           // ? Form
-          FormComponent(
+          FormWidget(
             size: _size,
             emailController: _controllers[0],
             passwordController: _controllers[1],
