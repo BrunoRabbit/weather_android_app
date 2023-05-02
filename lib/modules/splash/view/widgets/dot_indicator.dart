@@ -21,7 +21,6 @@ class DotIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: 1,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
