@@ -1,5 +1,5 @@
-extension FormExtensions on String? {
+extension FormExtensions on String {
   bool get isValidEmail {
-    return RegExp(r"^[a-zA-Z0-9]+@[a-zA-Z0-9.-]+$").hasMatch(this!);
+    return RegExp(r'^\S+@\S+\.\S+$').hasMatch(this);
   }
 }
