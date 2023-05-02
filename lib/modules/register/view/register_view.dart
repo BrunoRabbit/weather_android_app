@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:weather_android_app/components/app_text.dart';
+import 'package:weather_android_app/modules/register/presenter/register_presenter.dart';
+import 'package:weather_android_app/modules/register/view/register_view_model.dart';
 import 'package:weather_android_app/modules/register/view/widgets/form_component.dart';
-import 'package:weather_android_app/utility/app_utility.dart';
-import 'package:weather_android_app/utility/text_utility.dart';
+import 'package:weather_android_app/utils/utility/app_utility.dart';
+import 'package:weather_android_app/utils/utility/text_utility.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -11,22 +14,19 @@ class RegisterView extends StatefulWidget {
 }
 
 class _RegisterViewState extends State<RegisterView> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  late TextEditingController _emailController;
-  late TextEditingController _passwordController;
-  late TextEditingController _confirmPasswordController;
-  late TextEditingController _nameController;
+  late List<TextEditingController> _controllers;
+  late RegisterPresenter _presenter;
+  RegisterViewModel viewModel = RegisterViewModel();
 
   late Size _size;
 
   @override
   void initState() {
     super.initState();
-    _emailController = TextEditingController();
-    _passwordController = TextEditingController();
-    _confirmPasswordController = TextEditingController();
-    _nameController = TextEditingController();
+    _controllers = List.generate(4, (_) => TextEditingController());
+    _presenter = RegisterPresenter(
+      viewModel: viewModel,
+    );
   }
 
   @override
@@ -37,10 +37,9 @@ class _RegisterViewState extends State<RegisterView> {
 
   @override
   void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    _confirmPasswordController.dispose();
-    _nameController.dispose();
+    for (TextEditingController controller in _controllers) {
+      controller.dispose();
+    }
     super.dispose();
   }
 
@@ -52,11 +51,11 @@ class _RegisterViewState extends State<RegisterView> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            // ? unfocus keyboard after 200 milli to avoid overflow
+            // ? unfocus keyboard after 150 milli to avoid overflow
             if (FocusManager.instance.primaryFocus!.hasFocus) {
               FocusManager.instance.primaryFocus?.unfocus();
 
-              Future.delayed(const Duration(milliseconds: 200), () {
+              Future.delayed(const Duration(milliseconds: 150), () {
                 Navigator.of(context).pop();
               });
             } else {
@@ -64,9 +63,12 @@ class _RegisterViewState extends State<RegisterView> {
             }
           },
         ),
-        title: Text(
+        title: AppText(
           "Voltar",
-          style: TextUtility.subtitle1.copyWith(color: Colors.white),
+          style: TextUtility.subtitle1.copyWith(
+            color: Colors.white,
+            fontFamily: 'Nunito-Regular',
+          ),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -89,7 +91,7 @@ class _RegisterViewState extends State<RegisterView> {
                       bottom: 28,
                       left: 18,
                     ),
-                    child: Text(
+                    child: AppText(
                       'Register',
                       style: TextUtility.headline1.medium,
                     ),
@@ -101,12 +103,13 @@ class _RegisterViewState extends State<RegisterView> {
 
           // ? Form
           FormComponent(
-            formKey: _formKey,
             size: _size,
-            emailController: _emailController,
-            passwordController: _passwordController,
-            confirmPasswordController: _confirmPasswordController,
-            nameController: _nameController,
+            emailController: _controllers[0],
+            passwordController: _controllers[1],
+            confirmPasswordController: _controllers[2],
+            nameController: _controllers[3],
+            presenter: _presenter,
+            viewModel: viewModel,
           ),
         ],
       ),
@@ -118,7 +121,7 @@ class AppBarPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var paint1 = Paint()
-      ..color = AppUtility.secondaryBackground
+      ..color = AppUtility.kSecondaryBackground
       ..style = PaintingStyle.fill;
     canvas.drawCircle(const Offset(30, -30), 230, paint1);
   }
