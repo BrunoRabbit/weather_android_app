@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:weather_android_app/modules/register/view/register_view.dart';
+import 'package:weather_android_app/modules/auth/login/view/login_view.dart';
+import 'package:weather_android_app/modules/auth/register/view/register_view.dart';
 import 'package:weather_android_app/modules/splash/view/splash_view_model.dart';
 import 'package:weather_android_app/modules/splash/view/widgets/auth_button.dart';
 import 'package:weather_android_app/modules/splash/view/widgets/page_list.dart';
@@ -59,7 +60,13 @@ class DotIndicator extends StatelessWidget {
                       ),
                       Expanded(
                         child: AuthButton(
-                          onPress: () {},
+                          onPress: () {
+                            Navigator.of(context).push(
+                              AppRouter.createRoute(
+                                const LoginView(),
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ],
