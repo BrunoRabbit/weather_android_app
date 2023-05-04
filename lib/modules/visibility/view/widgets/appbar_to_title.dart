@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:weather_android_app/components/app_text.dart';
-import 'package:weather_android_app/modules/home/view/home_view.dart';
 import 'package:weather_android_app/modules/home/view/home_view_model.dart';
 import 'package:weather_android_app/modules/visibility/view/visibility_view_model.dart';
-import 'package:weather_android_app/routes/app_routes.dart';
 import 'package:weather_android_app/utils/extensions/date_extensions.dart';
 import 'package:weather_android_app/utils/utility/text_utility.dart';
 
@@ -29,11 +27,7 @@ class AppbarToTitle extends StatelessWidget {
             IconButton(
               icon: const Icon(Icons.arrow_back_rounded),
               onPressed: () {
-                Navigator.of(context).pop(
-                  AppRouter.createRoute(
-                    const HomeView(),
-                  ),
-                );
+                Navigator.of(context).pop();
               },
             ),
           ],

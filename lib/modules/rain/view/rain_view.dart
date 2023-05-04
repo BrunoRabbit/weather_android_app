@@ -51,11 +51,7 @@ class _RainViewState extends State<RainView> {
         elevation: 0,
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pop(
-              AppRouter.createRoute(
-                const HomeView(),
-              ),
-            );
+            Navigator.of(context).pop();
           },
           icon: const Icon(
             Icons.arrow_back_rounded,
@@ -94,7 +90,7 @@ class _RainViewState extends State<RainView> {
                             fontFamily: 'Nunito-Medium',
                           ),
                         ),
-                        
+
                         // ? Humidity
                         Row(
                           children: [
