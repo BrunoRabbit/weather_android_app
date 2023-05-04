@@ -3,8 +3,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:weather_android_app/components/app_text.dart';
 import 'package:weather_android_app/components/transparent_app_bar.dart';
 import 'package:weather_android_app/modules/auth/auth_store.dart';
-import 'package:weather_android_app/modules/auth/login/presenter/login_presenter.dart';
-import 'package:weather_android_app/modules/auth/register/presenter/register_presenter.dart';
 import 'package:weather_android_app/modules/home/presenter/home_presenter.dart';
 import 'package:weather_android_app/modules/home/view/home_view_model.dart';
 import 'package:weather_android_app/modules/home/view/widgets/main_drawer.dart';

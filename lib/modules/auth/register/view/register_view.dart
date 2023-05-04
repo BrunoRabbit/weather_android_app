@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_android_app/components/app_text.dart';
 import 'package:weather_android_app/modules/auth/auth_view_model.dart';
-import 'package:weather_android_app/modules/auth/login/presenter/login_presenter.dart';
 import 'package:weather_android_app/modules/auth/register/presenter/register_presenter.dart';
 import 'package:weather_android_app/modules/auth/register/view/widgets/form_widget.dart';
 import 'package:weather_android_app/utils/utility/app_utility.dart';

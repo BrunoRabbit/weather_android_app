@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:weather_android_app/components/app_text.dart';
 import 'package:weather_android_app/components/app_text_field.dart';
 import 'package:weather_android_app/modules/auth/auth_view_model.dart';
-import 'package:weather_android_app/modules/auth/login/presenter/login_presenter.dart';
 import 'package:weather_android_app/modules/auth/register/entity/user_hive.dart';
 import 'package:weather_android_app/modules/auth/register/presenter/register_presenter.dart';
 import 'package:weather_android_app/modules/home/view/home_view.dart';

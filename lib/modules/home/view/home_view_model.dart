@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:mobx/mobx.dart';
 import 'package:weather_android_app/modules/home/entity/user_location.dart';
 import 'package:weather_android_app/modules/home/interactor/home_interactor.dart';
