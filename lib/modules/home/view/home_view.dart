@@ -17,12 +17,7 @@ import 'package:weather_android_app/modules/visibility/view/visibility_view_mode
 import 'package:weather_android_app/routes/app_routes.dart';
 
 class HomeView extends StatefulWidget {
-  final LoginPresenter? loginPresenter;
-
-  const HomeView(
-    this.loginPresenter, {
-    super.key,
-  });
+  const HomeView({super.key});
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -33,6 +28,7 @@ class _HomeViewState extends State<HomeView>
   final HomeViewModel _homeViewModel = HomeViewModel();
   final SearchViewModel _searchViewModel = SearchViewModel();
   final VisibilityViewModel _viewModel = VisibilityViewModel();
+  AuthStore authStore = AuthStore();
 
   late AnimationController _controller;
   late Size size;
@@ -86,7 +82,7 @@ class _HomeViewState extends State<HomeView>
               : Container();
         },
         onPressed: () {
-          widget.loginPresenter!.logout();
+          authStore.logout();
           Navigator.of(context).pushReplacement(
             AppRouter.createRoute(
               const SplashView(),
@@ -102,7 +98,7 @@ class _HomeViewState extends State<HomeView>
         builder: (context) {
           if (_homeViewModel.isDisplayedDialog) {
             WidgetsBinding.instance.addPostFrameCallback(
-              (_) => displayDialog(context, widget.loginPresenter),
+              (_) => displayDialog(context, authStore),
             );
             _homeViewModel.isDisplayedDialog = false;
           }
@@ -136,7 +132,7 @@ class _HomeViewState extends State<HomeView>
 
 // ! Case user deny permission, show Dialog and logOut
 Future<void> displayDialog(
-    BuildContext context, LoginPresenter? loginPresenter) async {
+    BuildContext context, AuthStore authStore) async {
   return showDialog(
     context: context,
     builder: (context) => AlertDialog(
@@ -172,7 +168,7 @@ Future<void> displayDialog(
             family: 'Medium',
           ),
           onPressed: () {
-            loginPresenter!.logout();
+            authStore.logout();
             Navigator.of(context).pushReplacement(
               AppRouter.createRoute(
                 const SplashView(),
