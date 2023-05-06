@@ -6,7 +6,7 @@ class RegisterPresenter {
   RegisterPresenter({required this.viewModel});
 
   AuthViewModel viewModel;
-  
+
   bool isRegister = false;
 
   Future<bool> registerUserHive(UserHive user) async {
@@ -21,6 +21,10 @@ class RegisterPresenter {
       viewModel.errorText = 'Usuário registrado com sucesso!';
     }
 
+    viewModel.userHive = box.values.firstWhere(
+      (u) => u.email == user.email && u.password == user.password,
+    );
+    
     await box.close();
 
     return isRegister;

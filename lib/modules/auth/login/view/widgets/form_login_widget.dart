@@ -158,7 +158,7 @@ class _FormLoginWidgetState extends State<FormLoginWidget> {
         Future.delayed(const Duration(seconds: 1), () {
           Navigator.of(context).push(
             AppRouter.createRoute(
-              const HomeView(),
+              HomeView(widget.viewModel),
             ),
           );
         });

@@ -185,7 +185,7 @@ class _FormWidgetState extends State<FormWidget> {
         Future.delayed(const Duration(seconds: 1), () {
           Navigator.of(context).push(
             AppRouter.createRoute(
-              const HomeView(),
+              HomeView(widget.viewModel),
             ),
           );
         });

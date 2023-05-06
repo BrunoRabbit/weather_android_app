@@ -26,7 +26,7 @@ class AppRouter {
         return createRoute(const SplashView());
 
       case AppRoutes.kHome:
-        return createRoute(const HomeView());
+        return createRoute(HomeView(arguments));
 
       case AppRoutes.kRegister:
         return createRoute(const RegisterView());

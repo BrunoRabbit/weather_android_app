@@ -1,8 +1,11 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+
 import 'package:weather_android_app/components/app_text.dart';
 import 'package:weather_android_app/components/transparent_app_bar.dart';
 import 'package:weather_android_app/modules/auth/auth_store.dart';
+import 'package:weather_android_app/modules/auth/auth_view_model.dart';
 import 'package:weather_android_app/modules/home/presenter/home_presenter.dart';
 import 'package:weather_android_app/modules/home/view/home_view_model.dart';
 import 'package:weather_android_app/modules/home/view/widgets/main_drawer.dart';
@@ -15,7 +18,12 @@ import 'package:weather_android_app/modules/visibility/view/visibility_view_mode
 import 'package:weather_android_app/routes/app_routes.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+  const HomeView(
+    this.authViewModel, {
+    Key? key,
+  }) : super(key: key);
+
+  final AuthViewModel authViewModel;
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -110,6 +118,7 @@ class _HomeViewState extends State<HomeView>
                       homeViewModel: _homeViewModel,
                       presenter: searchPresenter,
                       searchViewModel: _searchViewModel,
+                      viewModel: widget.authViewModel,
                     ),
 
                     // ? week weather info
@@ -129,8 +138,7 @@ class _HomeViewState extends State<HomeView>
 }
 
 // ! Case user deny permission, show Dialog and logOut
-Future<void> displayDialog(
-    BuildContext context, AuthStore authStore) async {
+Future<void> displayDialog(BuildContext context, AuthStore authStore) async {
   return showDialog(
     context: context,
     builder: (context) => AlertDialog(
