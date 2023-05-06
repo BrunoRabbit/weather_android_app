@@ -145,23 +145,16 @@ Future<void> displayDialog(BuildContext context, AuthStore authStore) async {
       title: const AppText(
         'Você recusou a permissão',
         family: 'SemiBold',
+        size: 16,
         color: Colors.black87,
       ),
       content: SingleChildScrollView(
         child: ListBody(
           children: const <Widget>[
             AppText(
-              'Para utilizar o aplicativo é necessaria a permição da sua localização.',
+              'Para utilizar o aplicativo é necessaria a permição da sua localização.\n\nNão utilizaremos sua localização sem seu consentimento.',
               family: 'Medium',
               color: Colors.black87,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            AppText(
-              'Não utilizaremos sua localização sem seu consentimento.',
-              color: Colors.black87,
-              family: 'Medium',
             ),
           ],
         ),

@@ -9,7 +9,6 @@ import 'package:weather_android_app/modules/search/presenter/search_presenter.da
 import 'package:weather_android_app/modules/search/view/search_view.dart';
 import 'package:weather_android_app/modules/search/view/search_view_model.dart';
 import 'package:weather_android_app/routes/app_routes.dart';
-import 'package:weather_android_app/utils/utility/app_utility.dart';
 import 'package:weather_android_app/utils/utility/text_utility.dart';
 
 class WeatherMainContent extends StatelessWidget {
