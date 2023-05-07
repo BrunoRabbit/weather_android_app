@@ -50,7 +50,7 @@ class _HomeViewState extends State<HomeView>
       upperBound: 1,
       lowerBound: -1,
       vsync: this,
-    )..stop(canceled: true); // ..repeat();
+    )..repeat(); // ..stop(canceled: true);
 
     presenter = HomePresenter(_homeViewModel);
     presenter.checkServiceLocation();
