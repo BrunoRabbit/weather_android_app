@@ -28,6 +28,13 @@ __personally i dont like print's__ but it's all i have for now
 ![title](assets/markdown_images/drawer_to_visibility.png)
 ![title](assets/markdown_images/rain_screen.png)
 
+## What you need to run the project
+ First of all, you need the Flutter(of course) and when you clone the repo of the app, you need to create a .env file and add a PRIVATE_KEY and API_KEY, where:
+  - **API_KEY** is API from [HG Brasil](https://hgbrasil.com/) 
+  - **PRIVATE_KEY** is a random String combination, initially done by numbers, it is a means of security that aims to add values to the SHA-256 hash in the user's password
+
+After these steps run in your terminal from Visual Studio Code this command: <code>dart run build_runner build</code> or <code>flutter pub run build_runner build</code>. Each has the same responsability, this is means that it will create the necessaries data for ViewModel files
+ 
 ## Assignment
 
 Some images and icons is from 
